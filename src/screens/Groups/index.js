@@ -1,18 +1,24 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import GroupList from './GroupList'
 
 const Groups = () => {
+
+    const groups = [{ id: 1, name: 'Group 1'}, { id: 2, name: 'Group 2'}, { id: 3, name: 'Group 3'}]
+
+    const groupClicked = group => {
+        console.log('clicked', group.name)
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Groups</Text>
+            <GroupList groups={groups} groupClicked={groupClicked} />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
     }
 })
 
