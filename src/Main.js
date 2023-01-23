@@ -8,6 +8,7 @@ import groupService from './services/groups'
 import listService from './services/lists'
 import { setGroups } from './reducers/groupsReducer'
 import { setLists } from './reducers/listsReducer'
+import Notification from './components/Notification'
 
 const Main = () => {
     const groups = useSelector(state => state.groups)
@@ -40,6 +41,7 @@ const Main = () => {
 
     return (
         <SafeAreaView style={styles.screen}>
+            <Notification />
             <View style={styles.container}>
                 <Stack />
                 <StatusBar style="auto" />

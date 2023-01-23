@@ -4,6 +4,7 @@ import CreateGroupForm from './CreateGroupForm'
 import groupService from '../../services/groups'
 import { useDispatch } from 'react-redux'
 import { addGroup } from '../../reducers/groupsReducer'
+import { setNotification } from '../../reducers/notificationReducer'
 
 const CreateGroup = ({ navigation }) => {
 
@@ -13,7 +14,9 @@ const CreateGroup = ({ navigation }) => {
         groupService.create(newGroup)
         .then(response => {
             dispatch(addGroup(response))
+            dispatch(setNotification('Group Created!', 4))
             navigation.goBack()
+            
         })
         .catch(error => {
             console.log('error in create group')
