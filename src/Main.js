@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import Stack from './navigation/Stack'
 
 const Main = () => {
     return (
         <View style={styles.container}>
-            <Text>TodoApp</Text>
+            <Stack />
             <StatusBar style="auto" />
         </View>
     )
@@ -12,10 +13,7 @@ const Main = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
+        flex: 1
     }
 })
 
