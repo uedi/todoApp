@@ -1,10 +1,11 @@
 import { View, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import GroupList from './GroupList'
+import { useSelector } from 'react-redux'
 
 const Groups = () => {
 
-    const groups = [{ id: 1, name: 'Group 1'}, { id: 2, name: 'Group 2'}, { id: 3, name: 'Group 3'}]
+    const groups = useSelector(state => state.groups)
 
     const groupClicked = group => {
         console.log('clicked', group.name)
