@@ -1,4 +1,5 @@
 import { View, StyleSheet } from 'react-native'
+import Header from '../../components/Header'
 import GroupList from './GroupList'
 
 const Groups = () => {
@@ -11,6 +12,7 @@ const Groups = () => {
 
     return (
         <View style={styles.container}>
+            <Header text='Groups' />
             <GroupList groups={groups} groupClicked={groupClicked} />
         </View>
     )
