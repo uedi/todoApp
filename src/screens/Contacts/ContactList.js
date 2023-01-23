@@ -1,22 +1,22 @@
 import { FlatList, View } from 'react-native'
-import GroupListItem from './GroupListItem'
+import ContactListItem from './ContactListItem'
 
 const ItemSeparator = () => (
     <View style={{ height: 20 }} />
 )
 
-const GroupList = ({ groups, groupClicked }) => {
-    if(!groups) {
+const ContactList = ({ contacts, contactClicked }) => {
+    if(!contacts) {
         return null
     }
 
     const renderItem = ({ item, index }) => (
-        <GroupListItem group={item} clicked={groupClicked} />
+        <ContactListItem contact={item} clicked={contactClicked} />
     )
 
     return (
         <FlatList
-            data={groups}
+            data={contacts}
             ItemSeparatorComponent={ItemSeparator}
             renderItem={renderItem}
             keyExtractor={(item, index) => item.id}
@@ -25,4 +25,4 @@ const GroupList = ({ groups, groupClicked }) => {
     )
 }
 
-export default GroupList
+export default ContactList

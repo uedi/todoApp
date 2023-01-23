@@ -1,18 +1,24 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import ContactList from './ContactList'
+import { useSelector } from 'react-redux'
 
 const Contacts = () => {
+    const contacts = useSelector(state => state.contacts)
+
+    const contactClicked = contact => {
+        console.log('clicked', contact.name)
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Contacts</Text>
+            <ContactList contacts={contacts} contactClicked={contactClicked} />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
     }
 })
 

@@ -6,13 +6,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import groupService from './services/groups'
 import listService from './services/lists'
+import contactsService from './services/contacts'
 import { setGroups } from './reducers/groupsReducer'
 import { setLists } from './reducers/listsReducer'
+import { setContacts } from './reducers/contactsReducer'
 import Notification from './components/Notification'
 
 const Main = () => {
     const groups = useSelector(state => state.groups)
     const lists = useSelector(state => state.lists)
+    const contacts = useSelector(state => state.contacts)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -35,6 +38,18 @@ const Main = () => {
             })
             .catch(error => {
                 console.log('error in get lists')
+            })
+        }
+    }, [lists, dispatch])
+
+    useEffect(() => {
+        if(!contacts) {
+            contactsService.getAll()
+            .then(response => {
+                dispatch(setContacts(response))
+            })
+            .catch(error => {
+                console.log('error in get contacts')
             })
         }
     }, [lists, dispatch])

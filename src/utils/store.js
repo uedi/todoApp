@@ -4,12 +4,14 @@ import userReducer from '../reducers/userReducer'
 import groupsReducer from '../reducers/groupsReducer'
 import listsReducer from '../reducers/listsReducer'
 import notificationReducer from '../reducers/notificationReducer'
+import contactsReducer from '../reducers/contactsReducer'
 
 const reducer = combineReducers({
     user: userReducer,
     groups: groupsReducer,
     lists: listsReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    contacts: contactsReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

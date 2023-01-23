@@ -1,13 +1,13 @@
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 
-const GroupListItem = ({ group, clicked }) => {
+const ContactListItem = ({ contact, clicked }) => {
     return (
         <View style={styles.container}>
             <TouchableNativeFeedback
-                onPress={() => clicked(group)}
+                onPress={() => clicked(contact)}
             >
                 <View style={styles.innerContainer}>
-                    <Text style={styles.groupName}>{group.name}</Text>
+                    <Text style={styles.name}>{contact.name}</Text>
                 </View>
             </TouchableNativeFeedback>
         </View>
@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20
     },
-    groupName: {
+    name: {
         color: '#000',
         fontSize: 17,
         fontWeight: '700'
     }
 })
 
-export default GroupListItem
+export default ContactListItem
