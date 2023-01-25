@@ -3,6 +3,7 @@ import GetStarted from '../screens/public/GetStarted'
 import SignUp from '../screens/public/SignUp'
 import Login from '../screens/public/Login'
 import CreatingAccount from '../screens/public/CreatingAccount'
+import LoginWait from '../screens/public/LoginWait'
 
 const StackNav = createStackNavigator()
 
@@ -17,6 +18,9 @@ const PublicStack = () => {
             <StackNav.Screen name='SignUp' component={SignUp} />
             <StackNav.Screen name='Login' component={Login} />
             <StackNav.Screen name='CreatingAccount' component={CreatingAccount}
+                options={{ headerShown: false }}
+            />
+            <StackNav.Screen name='LoginWait' component={LoginWait}
                 options={{ headerShown: false }}
             />
         </StackNav.Navigator>

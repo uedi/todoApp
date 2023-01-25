@@ -1,17 +1,32 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, KeyboardAvoidingView, Keyboard,
+    TouchableWithoutFeedback } from 'react-native'
+import LoginForm from './LoginForm'
 
-const Login = () => {
+const Login = ({ navigation }) => {
+
+    const handleLogin = credentials => {
+        navigation.navigate('LoginWait', { credentials: credentials })
+    }
+
     return (
-        <View style={styles.container}>
-            <Text>Login</Text>
-        </View>
+        <KeyboardAvoidingView style={styles.container}>
+            <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}
+            >
+                <View style={styles.innerContainer}>
+                    <LoginForm login={handleLogin} />
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1
+    },
+    innerContainer: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
     }
 })
