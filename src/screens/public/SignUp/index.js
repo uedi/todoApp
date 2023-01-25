@@ -2,10 +2,10 @@ import { View, StyleSheet, KeyboardAvoidingView, Keyboard,
     TouchableWithoutFeedback } from 'react-native'
 import SignUpForm from './SignUpForm'
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
 
-    const handleSignup = data => {
-        console.log('signup', data)
+    const handleSignup = signupData => {
+        navigation.navigate('CreatingAccount', { signupData: signupData })
     }
 
     return (
