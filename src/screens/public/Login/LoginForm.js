@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { View, StyleSheet, TextInput, Button, Text } from 'react-native'
+import { USERNAME, PASSWORD } from "../../../utils/config"
 
 const LoginForm = ({ login }) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState(USERNAME || '')
+    const [password, setPassword] = useState(PASSWORD || '')
 
     const valid = username !== '' && password !== ''
 
