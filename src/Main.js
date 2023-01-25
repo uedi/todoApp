@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, SafeAreaView } from 'react-native'
 import Constants from 'expo-constants'
 import Stack from './navigation/Stack'
+import PublicStack from './navigation/PublicStack'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import groupService from './services/groups'
@@ -13,6 +14,7 @@ import { setContacts } from './reducers/contactsReducer'
 import Notification from './components/Notification'
 
 const Main = () => {
+    const user = useSelector(state => state.user)
     const groups = useSelector(state => state.groups)
     const lists = useSelector(state => state.lists)
     const contacts = useSelector(state => state.contacts)
@@ -58,7 +60,8 @@ const Main = () => {
         <SafeAreaView style={styles.screen}>
             <Notification />
             <View style={styles.container}>
-                <Stack />
+                { user && <Stack /> }
+                { !user && <PublicStack /> }
                 <StatusBar style="auto" />
             </View>
         </SafeAreaView>

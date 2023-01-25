@@ -16,7 +16,6 @@ const CreateGroup = ({ navigation }) => {
             dispatch(addGroup(response))
             dispatch(setNotification('Group Created!', 4))
             navigation.goBack()
-            
         })
         .catch(error => {
             console.log('error in create group')
