@@ -18,7 +18,7 @@ const Lists = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Header text='Groups' />
+            <Header text='Lists' />
             <ListList lists={lists} listClicked={listClicked} />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
