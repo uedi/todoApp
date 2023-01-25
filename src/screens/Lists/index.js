@@ -9,7 +9,7 @@ const Lists = ({ navigation }) => {
     const lists = useSelector(state => state.lists)
 
     const listClicked = list => {
-        console.log('clicked', list.name)
+        navigation.navigate('List', { name: list?.name })
     }
 
     const handleAddButton = () => {

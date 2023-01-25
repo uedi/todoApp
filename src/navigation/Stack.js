@@ -6,6 +6,8 @@ import Contacts from '../screens/Contacts'
 import About from '../screens/About'
 import Settings from '../screens/Settings'
 import Account from '../screens/Account'
+import Group from '../screens/Group'
+import List from '../screens/List'
 
 const StackNav = createStackNavigator()
 
@@ -27,6 +29,12 @@ const Stack = () => {
             <StackNav.Screen name='About' component={About} />
             <StackNav.Screen name='Settings' component={Settings} />
             <StackNav.Screen name='Account' component={Account} />
+            <StackNav.Screen name='Group' component={Group}
+                options={({ route }) => ({ title: route.params?.name })}
+            />
+            <StackNav.Screen name='List' component={List}
+                options={({ route }) => ({ title: route.params?.name })}
+            />
         </StackNav.Navigator>
     )
 }
