@@ -43,6 +43,7 @@ const SignUpForm = ({ signup }) => {
                 textAlign='center'
                 value={password}
                 onChangeText={setPassword}
+                secureTextEntry={true}
             />
             <View style={styles.button}>
                 <Button
