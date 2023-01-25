@@ -12,6 +12,7 @@ import { setGroups } from './reducers/groupsReducer'
 import { setLists } from './reducers/listsReducer'
 import { setContacts } from './reducers/contactsReducer'
 import Notification from './components/Notification'
+import { setToken } from './utils/auth'
 
 const Main = () => {
     const user = useSelector(state => state.user)
@@ -21,7 +22,15 @@ const Main = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(!groups) {
+        if(user) {
+            setToken(user.token)
+        } else {
+            setToken(null)
+        }
+    }, [user])
+
+    useEffect(() => {
+        if(user && !groups) {
             groupService.getAll()
             .then(response => {
                 dispatch(setGroups(response))
@@ -30,10 +39,10 @@ const Main = () => {
                 console.log('error in get groups')
             })
         }
-    }, [groups, dispatch])
+    }, [user, groups, dispatch])
 
     useEffect(() => {
-        if(!lists) {
+        if(user && !lists) {
             listService.getAll()
             .then(response => {
                 dispatch(setLists(response))
@@ -42,10 +51,10 @@ const Main = () => {
                 console.log('error in get lists')
             })
         }
-    }, [lists, dispatch])
+    }, [user, lists, dispatch])
 
     useEffect(() => {
-        if(!contacts) {
+        if(user && !contacts) {
             contactsService.getAll()
             .then(response => {
                 dispatch(setContacts(response))
@@ -54,7 +63,7 @@ const Main = () => {
                 console.log('error in get contacts')
             })
         }
-    }, [lists, dispatch])
+    }, [user, lists, dispatch])
 
     return (
         <SafeAreaView style={styles.screen}>
