@@ -6,7 +6,7 @@ import listsReducer from '../reducers/listsReducer'
 import notificationReducer from '../reducers/notificationReducer'
 import contactsReducer from '../reducers/contactsReducer'
 
-const reducer = combineReducers({
+const appReducer = combineReducers({
     user: userReducer,
     groups: groupsReducer,
     lists: listsReducer,
@@ -14,6 +14,13 @@ const reducer = combineReducers({
     contacts: contactsReducer
 })
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const rootReducer = (state, action) => {
+    if(action.type === 'CLEAR_STATE') {
+        return appReducer(undefined, action)
+    }
+    return appReducer(state, action)
+}
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store
