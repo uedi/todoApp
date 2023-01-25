@@ -5,6 +5,7 @@ import CreateList from '../screens/CreateList'
 import Contacts from '../screens/Contacts'
 import About from '../screens/About'
 import Settings from '../screens/Settings'
+import Account from '../screens/Account'
 
 const StackNav = createStackNavigator()
 
@@ -25,6 +26,7 @@ const Stack = () => {
             <StackNav.Screen name='Contacts' component={Contacts} />
             <StackNav.Screen name='About' component={About} />
             <StackNav.Screen name='Settings' component={Settings} />
+            <StackNav.Screen name='Account' component={Account} />
         </StackNav.Navigator>
     )
 }
