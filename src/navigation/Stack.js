@@ -10,6 +10,7 @@ import Group from '../screens/Group'
 import List from '../screens/List'
 import CreateTodo from '../screens/CreateTodo'
 import Contact from '../screens/Contact'
+import AddContact from '../screens/AddContact'
 
 const StackNav = createStackNavigator()
 
@@ -42,6 +43,9 @@ const Stack = () => {
             />
             <StackNav.Screen name='Contact' component={Contact}
                 options={({ route }) => ({ title: route.params?.name })}
+            />
+            <StackNav.Screen name='AddContact' component={AddContact}
+                options={{ title: 'Add contact' }}
             />
         </StackNav.Navigator>
     )
