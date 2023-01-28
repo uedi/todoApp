@@ -9,6 +9,7 @@ import Account from '../screens/Account'
 import Group from '../screens/Group'
 import List from '../screens/List'
 import CreateTodo from '../screens/CreateTodo'
+import Contact from '../screens/Contact'
 
 const StackNav = createStackNavigator()
 
@@ -38,6 +39,9 @@ const Stack = () => {
             />
             <StackNav.Screen name='CreateTodo' component={CreateTodo}
                 options={{ title: 'Create new Todo' }}
+            />
+            <StackNav.Screen name='Contact' component={Contact}
+                options={({ route }) => ({ title: route.params?.name })}
             />
         </StackNav.Navigator>
     )

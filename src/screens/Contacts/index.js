@@ -2,11 +2,11 @@ import { View, StyleSheet } from 'react-native'
 import ContactList from './ContactList'
 import { useSelector } from 'react-redux'
 
-const Contacts = () => {
+const Contacts = ({ navigation }) => {
     const contacts = useSelector(state => state.contacts)
 
     const contactClicked = contact => {
-        console.log('clicked', contact.name)
+        navigation.navigate('Contact', { name: contact?.name, id: contact?.id })
     }
 
     return (
