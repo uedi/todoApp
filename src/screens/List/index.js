@@ -3,14 +3,18 @@ import { useSelector } from 'react-redux'
 import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
 
-const List = ({ route }) => {
+const List = ({ route, navigation }) => {
     const lists = useSelector(state => state.lists)
     const id = route.params?.id
     const list = lists && lists.find(l => l.id.toString() === id)
     const todos = list?.todos
 
     const handleAddButton = () => {
-        console.log('create todo')
+        navigation.navigate('CreateTodo', { listId: list?.id })
+    }
+
+    if(!list) {
+        return null
     }
 
     return (
