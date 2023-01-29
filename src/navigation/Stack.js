@@ -11,6 +11,8 @@ import List from '../screens/List'
 import CreateTodo from '../screens/CreateTodo'
 import Contact from '../screens/Contact'
 import AddContact from '../screens/AddContact'
+import AddContactManual from '../screens/AddContactManual'
+import AddContactScan from '../screens/AddContactScan'
 
 const StackNav = createStackNavigator()
 
@@ -46,6 +48,12 @@ const Stack = () => {
             />
             <StackNav.Screen name='AddContact' component={AddContact}
                 options={{ title: 'Add contact' }}
+            />
+            <StackNav.Screen name='AddContactManual' component={AddContactManual}
+                options={{ title: 'Enter username' }}
+            />
+            <StackNav.Screen name='AddContactScan' component={AddContactScan}
+                options={{ title: 'Scan qr code' }}
             />
         </StackNav.Navigator>
     )
