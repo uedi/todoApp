@@ -7,7 +7,7 @@ const Contacts = ({ navigation }) => {
     const contacts = useSelector(state => state.contacts)
 
     const contactClicked = contact => {
-        navigation.navigate('Contact', { name: contact?.name, id: contact?.id })
+        navigation.navigate('Contact', { name: contact?.name, id: contact?.contactId })
     }
 
     const handleAddButton = () => {

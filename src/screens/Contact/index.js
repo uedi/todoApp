@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 const Contact = ({ route }) => {
     const contacts = useSelector(state => state.contacts)
     const id = route.params?.id
-    const contact = contacts && contacts.find(c => c.id.toString() === id)
+    const contact = contacts && contacts.find(c => c.contactId.toString() === id)
 
     if (!contact) {
         return null

@@ -19,7 +19,7 @@ const ContactList = ({ contacts, contactClicked }) => {
             data={contacts}
             ItemSeparatorComponent={ItemSeparator}
             renderItem={renderItem}
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item.contactId}
             contentContainerStyle={{ paddingVertical: 15 }}
         />
     )
