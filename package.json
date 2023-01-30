@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-community/datetimepicker": "6.5.2",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/stack": "^6.3.11",
     "axios": "^1.2.4",
+    "date-fns": "^2.29.3",
     "expo": "~47.0.12",
     "expo-checkbox": "^2.2.2",
     "expo-constants": "^14.0.2",
@@ -28,8 +30,7 @@
     "react-native-screens": "~3.18.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.2",
-    "@react-native-community/datetimepicker": "6.5.2"
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
