@@ -13,7 +13,7 @@ const CreateTodo = ({ route, navigation }) => {
         const todoToCreate = {...data, listId: listId}
         todosService.create(todoToCreate)
         .then(response => {
-            dispatch(addTodoToList(response))
+            dispatch(addTodoToList(listId, response))
             navigation.goBack()
         })
         .catch(error => {

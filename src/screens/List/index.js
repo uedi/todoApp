@@ -15,6 +15,8 @@ const List = ({ route, navigation }) => {
     useEffect(() => {
         if(lists) {
             setList(lists.find(l => l.id.toString() === id))
+        } else {
+            setList(null)
         }
     }, [lists])
 
