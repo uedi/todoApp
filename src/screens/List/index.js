@@ -1,16 +1,36 @@
 import { View, StyleSheet, Text, Dimensions } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
+import todosService from '../../services/todos'
+import { updateTodo } from '../../reducers/listsReducer'
+import { useEffect, useState } from 'react'
 
 const List = ({ route, navigation }) => {
+    const [list, setList] = useState()
     const lists = useSelector(state => state.lists)
     const id = route.params?.id
-    const list = lists && lists.find(l => l.id.toString() === id)
-    const todos = list?.todos
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if(lists) {
+            setList(lists.find(l => l.id.toString() === id))
+        }
+    }, [lists])
 
     const handleAddButton = () => {
         navigation.navigate('CreateTodo', { listId: list?.id })
+    }
+
+    const handleUpdateTodo = (data) => {
+        const dataToSend = { ...data, listId: list?.id }
+        todosService.updateTodo(dataToSend)
+        .then(response => {
+            dispatch(updateTodo(list?.id, response))
+        })
+        .catch(error => {
+            console.log('error in update todo', error)
+        })
     }
 
     if(!list) {
@@ -20,7 +40,7 @@ const List = ({ route, navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.topic}>Todos</Text>
-            <TodoList todos={todos} />
+            <TodoList todos={list.todos} updateTodo={handleUpdateTodo}/>
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
     )

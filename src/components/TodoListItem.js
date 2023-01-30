@@ -2,10 +2,13 @@ import { View, StyleSheet, Text } from 'react-native'
 import CheckBox from 'expo-checkbox'
 
 
-const TodoListItem = ({ todo }) => {
+const TodoListItem = ({ todo, updateTodo }) => {
 
     const handleValueChange = (value) => {
-        console.log(value)
+        updateTodo({
+            id: todo.id,
+            done: value
+        })
     }
 
     return (
