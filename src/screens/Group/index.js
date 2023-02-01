@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, Dimensions } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import GroupInfo from './GroupInfo'
 import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
+import { updateGroupTodo } from '../../reducers/groupsReducer'
+import todosService from '../../services/todos'
 
 const Group = ({ route, navigation }) => {
     const [group, setGroup] = useState()
     const groups = useSelector(state => state.groups)
     const id = route.params?.id
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if(groups) {
@@ -31,7 +34,14 @@ const Group = ({ route, navigation }) => {
     }
 
     const handleUpdateTodo = (data) => {
-        console.log('update', data)
+        const dataToSend = { ...data, groupId: group?.id }
+        todosService.updateTodo(dataToSend)
+        .then(response => {
+            dispatch(updateGroupTodo(group?.id, response))
+        })
+        .catch(error => {
+            console.log('error in update todo', error)
+        })
     }
 
     if(!group) {
