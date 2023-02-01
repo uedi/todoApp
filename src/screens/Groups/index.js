@@ -9,7 +9,7 @@ const Groups = ({ navigation }) => {
     const groups = useSelector(state => state.groups)
 
     const groupClicked = group => {
-        navigation.navigate('Group', { name: group?.name })
+        navigation.navigate('Group', { name: group?.name, id: group?.id })
     }
 
     const handleAddButton = () => {

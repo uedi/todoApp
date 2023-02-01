@@ -14,6 +14,7 @@ import AddContact from '../screens/AddContact'
 import AddContactManual from '../screens/AddContactManual'
 import AddContactScan from '../screens/AddContactScan'
 import GroupMembers from '../screens/GroupMembers'
+import Messages from '../screens/Messages'
 
 const StackNav = createStackNavigator()
 
@@ -57,8 +58,9 @@ const Stack = () => {
                 options={{ title: 'Scan qr code' }}
             />
             <StackNav.Screen name='GroupMembers' component={GroupMembers}
-                options={{ title: 'Manage group members' }}
+                options={{ title: 'Group members' }}
             />
+            <StackNav.Screen name='Messages' component={Messages} />
         </StackNav.Navigator>
     )
 }
