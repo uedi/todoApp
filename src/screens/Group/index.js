@@ -27,7 +27,7 @@ const Group = ({ route, navigation }) => {
     }
 
     const handleAddButton = () => {
-        console.log('add')
+        navigation.navigate('CreateTodo', { groupId: group?.id })
     }
 
     const handleUpdateTodo = (data) => {

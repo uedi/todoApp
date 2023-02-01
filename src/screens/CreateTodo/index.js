@@ -4,16 +4,23 @@ import CreateTodoForm from './CreateTodoForm'
 import todosService from '../../services/todos'
 import { useDispatch } from 'react-redux'
 import { addTodoToList } from '../../reducers/listsReducer'
+import { addTodoToGroup } from '../../reducers/groupsReducer'
 
 const CreateTodo = ({ route, navigation }) => {
     const listId = route.params?.listId
+    const groupId = route.params?.groupId
     const dispatch = useDispatch()
 
     const handleCreate = data => {
-        const todoToCreate = {...data, listId: listId}
+        const todoToCreate = {...data, listId: listId, groupId: groupId }
         todosService.create(todoToCreate)
         .then(response => {
-            dispatch(addTodoToList(listId, response))
+            if(listId) {
+                dispatch(addTodoToList(listId, response))
+            } 
+            if(groupId) {
+                dispatch(addTodoToGroup(groupId, response))
+            }
             navigation.goBack()
         })
         .catch(error => {
@@ -21,8 +28,10 @@ const CreateTodo = ({ route, navigation }) => {
         })
     }
 
-    if(!listId) {
+    if(!(listId || groupId)) {
         return null
+    } else if(listId && groupId) {
+        console.log('create todo, both listId and groupId')
     }
 
     return (
