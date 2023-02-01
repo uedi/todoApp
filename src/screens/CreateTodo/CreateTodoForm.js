@@ -2,6 +2,7 @@ import { useState } from "react"
 import { View, StyleSheet, TextInput, Button, Text, TouchableNativeFeedback } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker'
+import { format } from 'date-fns'
 
 const CreateTodoFrom = ({ create }) => {
     const [name, setName] = useState('')
@@ -63,7 +64,7 @@ const CreateTodoFrom = ({ create }) => {
             />
             <View style={styles.inputRow}>
                 <Text>Start (optional)</Text>
-                { start && <Text>{start.toLocaleString()}</Text> }
+                { start && <Text>{format(start, 'dd.MM.yyyy')}</Text> }
                 <TouchableNativeFeedback onPress={startDatePicker}>
                     <View style={styles.dateButton}>
                         <MaterialIcons name='date-range' size={24} color='black' />
@@ -72,7 +73,7 @@ const CreateTodoFrom = ({ create }) => {
             </View>
             <View style={styles.inputRow}>
                 <Text>Due (optional))</Text>
-                { end && <Text>{end.toLocaleString()}</Text> }
+                { end && <Text>{format(end, 'dd.MM.yyyy')}</Text> }
                 <TouchableNativeFeedback onPress={endDatePicker}>
                     <View style={styles.dateButton}>
                         <MaterialIcons name='date-range' size={24} color='black' />
