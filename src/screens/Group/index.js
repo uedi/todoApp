@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
-import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
+import { View, StyleSheet, Text, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Ionicons } from '@expo/vector-icons'
+import GroupInfo from './GroupInfo'
+import TodoList from '../../components/TodoList'
+import AddButton from '../../components/AddButton'
 
 const Group = ({ route, navigation }) => {
     const [group, setGroup] = useState()
@@ -24,30 +26,28 @@ const Group = ({ route, navigation }) => {
         navigation.navigate('Messages', { groupName: group?.name, groupId: group?.id })
     }
 
+    const handleAddButton = () => {
+        console.log('add')
+    }
+
+    const handleUpdateTodo = (data) => {
+        console.log('update', data)
+    }
+
     if(!group) {
         return null
     }
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerRow}>
-                <TouchableNativeFeedback
-                    onPress={handleChatIconPress}
-                >
-                    <View style={styles.contactsButton}>
-                        <Ionicons name='chatbox-ellipses' size={23} color='black' />
-                        <Text style={styles.counter}>{group.messages ? group.messages.length : 0}</Text>
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback
-                    onPress={handlePeopleIconPress}
-                >
-                    <View style={styles.contactsButton}>
-                        <Ionicons name='people' size={24} color='black' />
-                        <Text style={styles.counter}>{group.users ? group.users.length : 0}</Text>
-                    </View>
-                </TouchableNativeFeedback>
-            </View>
+            <GroupInfo
+                group={group}
+                handlePeopleIconPress={handlePeopleIconPress}
+                handleChatIconPress={handleChatIconPress}
+            />
+            <Text style={styles.topic}>Todos</Text>
+            <TodoList todos={group.todos} updateTodo={handleUpdateTodo}/>
+            <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
     )
 }
@@ -55,24 +55,17 @@ const Group = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },    
+    topic: {
+        marginTop: 10,
+        marginLeft: 30,
+        fontSize: 17,
+        fontWeight: 'bold'
     },
-    headerRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 15
-    },
-    contactsButton: {
-        padding: 5,
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: '#ddd',
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    counter: {
-        marginLeft: 3,
-        fontSize: 15
+    addButton: {
+        position: 'absolute',
+        left: Dimensions.get('window').width / 2 - 30,
+        bottom: 15
     }
 })
 

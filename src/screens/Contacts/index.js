@@ -29,9 +29,6 @@ const styles = StyleSheet.create({
     addButton: {
         position: 'absolute',
         left: Dimensions.get('window').width / 2 - 30,
-        width: 60,
-        height: 60,
-        borderRadius: 30,
         bottom: 15
     }
 })
