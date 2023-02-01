@@ -1,6 +1,11 @@
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
+import TodoStatus from '../../components/TodoStatus'
 
 const GroupListItem = ({ group, clicked }) => {
+
+    const todosCount = group.todos ? group.todos.length : 0
+    const doneCount = group.todos ? group.todos.reduce((sum, cur) => sum + (cur.done ? 1 : 0), 0) : 0
+
     return (
         <View style={styles.container}>
             <TouchableNativeFeedback
@@ -8,6 +13,7 @@ const GroupListItem = ({ group, clicked }) => {
             >
                 <View style={styles.innerContainer}>
                     <Text style={styles.groupName}>{group.name}</Text>
+                    <TodoStatus doneCount={doneCount} totalCount={todosCount} />
                 </View>
             </TouchableNativeFeedback>
         </View>
@@ -29,7 +35,8 @@ const styles = StyleSheet.create({
     groupName: {
         color: '#000',
         fontSize: 17,
-        fontWeight: '700'
+        fontWeight: '700',
+        marginBottom: 5
     }
 })
 
