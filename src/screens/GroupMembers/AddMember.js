@@ -3,10 +3,7 @@ import { View, Text, StyleSheet,
 import Modal from 'react-native-modal'
 import AddMemberContacts from './AddMemberContacts'
 
-const AddMember = ({ visible, contacts, close }) => {
-    const addClicked = contact => {
-        console.log('add', contact.name)
-    }
+const AddMember = ({ visible, contacts, close, addClicked }) => {
 
     return (
         <Modal
