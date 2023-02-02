@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import MemberList from './MemberList'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import AddMember from './AddMember'
 import AddButton from '../../components/AddButton'
 import groupsService from '../../services/groups'
+import { setMembers } from '../../reducers/groupsReducer'
 
 const GroupMembers = ({ route }) => {
     const [group, setGroup] = useState()
@@ -12,6 +13,7 @@ const GroupMembers = ({ route }) => {
     const groups = useSelector(state => state.groups)
     const contacts = useSelector(state => state.contacts)
     const id = route.params?.id
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if(groups) {
@@ -30,7 +32,7 @@ const GroupMembers = ({ route }) => {
         setAddVisible(false)
         groupsService.addMember(group.id, { contactId: contact.contactId })
         .then(response => {
-            console.log(response)
+            dispatch(setMembers(group.id, response))
         })
         .catch(error => {
             console.log('error in add group member', error)

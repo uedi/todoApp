@@ -32,7 +32,7 @@ const MemberList = ({ members, memberClicked }) => {
             data={members}
             ItemSeparatorComponent={ItemSeparator}
             renderItem={renderItem}
-            keyExtractor={(item, index) => item.contactId}
+            keyExtractor={(item, index) => item.id}
             contentContainerStyle={{ paddingVertical: 15 }}
         />
     )
