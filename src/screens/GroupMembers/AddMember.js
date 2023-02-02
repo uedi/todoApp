@@ -3,7 +3,7 @@ import { View, Text, StyleSheet,
 import Modal from 'react-native-modal'
 import AddMemberContacts from './AddMemberContacts'
 
-const AddMember = ({ visible, contacts, close, addClicked }) => {
+const AddMember = ({ visible, contacts, close, addClicked, memberIds }) => {
 
     return (
         <Modal
@@ -16,7 +16,7 @@ const AddMember = ({ visible, contacts, close, addClicked }) => {
         >
             <View style={styles.modalContainer}>
                 <Text style={styles.topic}>Add contact to group</Text>
-                <AddMemberContacts contacts={contacts} addClicked={addClicked}  />
+                <AddMemberContacts contacts={contacts} addClicked={addClicked} memberIds={memberIds} />
             </View>
         </Modal>
     )

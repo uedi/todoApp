@@ -14,6 +14,7 @@ const GroupMembers = ({ route }) => {
     const contacts = useSelector(state => state.contacts)
     const id = route.params?.id
     const dispatch = useDispatch()
+    const memberIds = group?.users ? group.users.map(u => u.id) : []
 
     useEffect(() => {
         if(groups) {
@@ -45,6 +46,7 @@ const GroupMembers = ({ route }) => {
                 contacts={contacts}
                 close={() => setAddVisible(false)}
                 addClicked={handleAddClicked}
+                memberIds={memberIds}
             />
             <MemberList members={group?.users} memberClicked={memberClicked} />
             <AddButton onPress={() => setAddVisible(true)} style={styles.addButton} />

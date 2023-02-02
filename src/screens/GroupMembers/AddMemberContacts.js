@@ -25,14 +25,19 @@ const ListItem = ({ contact, addClicked }) => {
     )
 }
 
-const AddMemberContacts = ({ contacts, addClicked }) => {
+const AddMemberContacts = ({ contacts, addClicked, memberIds }) => {
     if(!contacts) {
         return null
     }
 
-    const renderItem = ({ item, index }) => (
-        <ListItem contact={item} addClicked={addClicked} />
-    )
+    const renderItem = ({ item, index }) => {
+        if(memberIds.includes(item.contactId)) {
+            return null
+        }
+        return (
+            <ListItem contact={item} addClicked={addClicked} />
+        )
+    }
 
     return (
         <FlatList
