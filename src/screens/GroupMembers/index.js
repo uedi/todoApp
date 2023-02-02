@@ -6,9 +6,11 @@ import AddMember from './AddMember'
 import AddButton from '../../components/AddButton'
 import groupsService from '../../services/groups'
 import { setMembers } from '../../reducers/groupsReducer'
+import MemberDetails from './MemberDetails'
 
 const GroupMembers = ({ route }) => {
     const [group, setGroup] = useState()
+    const [memberToShow, setMemberToShow] = useState()
     const [addVisible, setAddVisible] = useState(false)
     const groups = useSelector(state => state.groups)
     const contacts = useSelector(state => state.contacts)
@@ -26,7 +28,11 @@ const GroupMembers = ({ route }) => {
     }, [groups])
 
     const memberClicked = member => {
-        console.log('clicked', member.name)
+        setMemberToShow(member)
+    }
+
+    const closeMemberDetails = () => {
+        setMemberToShow(null)
     }
 
     const handleAddClicked = contact => {
@@ -48,6 +54,7 @@ const GroupMembers = ({ route }) => {
                 addClicked={handleAddClicked}
                 memberIds={memberIds}
             />
+            <MemberDetails member={memberToShow} close={closeMemberDetails} />
             <MemberList members={group?.users} memberClicked={memberClicked} />
             <AddButton onPress={() => setAddVisible(true)} style={styles.addButton} />
         </View>
