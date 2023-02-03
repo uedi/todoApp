@@ -1,9 +1,17 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import MessageInput from './MessageInput'
 
 const Messages = () => {
+
+    const sendMessage = msg => {
+        console.log('send', msg)
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Messages</Text>
+            <View style={styles.messagesContainer}>
+            </View>
+            <MessageInput sendMessage={sendMessage} />
         </View>
     )
 }
@@ -13,6 +21,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    messagesContainer: {
+        flex: 1
     }
 })
 
