@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import MessageInput from './MessageInput'
 import messagesService from '../../services/messages'
 import { addGroupMessage } from '../../reducers/messagesReducer'
+import MessageList from './MessageList'
 
 const Messages = ({ route }) => {
     const groupId = route.params.groupId
@@ -26,6 +27,7 @@ const Messages = ({ route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.messagesContainer}>
+                <MessageList messages={groupMessages} />
             </View>
             <MessageInput sendMessage={sendMessage} />
         </View>
@@ -39,7 +41,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     messagesContainer: {
-        flex: 1
+        flex: 1,
+        alignSelf: 'stretch'
     }
 })
 

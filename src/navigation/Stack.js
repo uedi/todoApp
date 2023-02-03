@@ -60,7 +60,9 @@ const Stack = () => {
             <StackNav.Screen name='GroupMembers' component={GroupMembers}
                 options={{ title: 'Group members' }}
             />
-            <StackNav.Screen name='Messages' component={Messages} />
+            <StackNav.Screen name='Messages' component={Messages}
+                options={({ route }) => ({ title: `Messages (${route.params?.groupName})`})}
+            />
         </StackNav.Navigator>
     )
 }
