@@ -6,10 +6,13 @@ import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
 import { updateGroupTodo } from '../../reducers/groupsReducer'
 import todosService from '../../services/todos'
+import messagesService from '../../services/messages'
+import { setGroupMessages } from '../../reducers/messagesReducer'
 
 const Group = ({ route, navigation }) => {
     const [group, setGroup] = useState()
     const groups = useSelector(state => state.groups)
+    const messages = useSelector(state => state.messages)
     const id = route.params?.id
     const dispatch = useDispatch()
 
@@ -20,6 +23,18 @@ const Group = ({ route, navigation }) => {
             setGroup(null)
         }
     }, [groups])
+
+    useEffect(() => {
+        if(group && !messages[group.id]) {
+            messagesService.getGroupMessages(group.id)
+            .then(response => {
+                dispatch(setGroupMessages(group.id, response))
+            })
+            .catch(error => {
+                console.log('error in get group messages', error)
+            })
+        }
+    }, [group, dispatch])
 
     const handlePeopleIconPress = () => {
         navigation.navigate('GroupMembers', { name: group?.name, id: group?.id })

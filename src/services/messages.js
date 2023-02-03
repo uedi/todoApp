@@ -8,4 +8,9 @@ const sendMessage = async (data) => {
     return response.data
 }
 
-export default { sendMessage }
+const getGroupMessages = async (id) => {
+    const response = await axios.get(`${BACKEND_URL}/api/groups/${id}/messages`, header())
+    return response.data
+}
+
+export default { sendMessage, getGroupMessages }
