@@ -5,13 +5,15 @@ import groupsReducer from '../reducers/groupsReducer'
 import listsReducer from '../reducers/listsReducer'
 import notificationReducer from '../reducers/notificationReducer'
 import contactsReducer from '../reducers/contactsReducer'
+import messagesReducer from '../reducers/messagesReducer'
 
 const appReducer = combineReducers({
     user: userReducer,
     groups: groupsReducer,
     lists: listsReducer,
     notification: notificationReducer,
-    contacts: contactsReducer
+    contacts: contactsReducer,
+    messages: messagesReducer
 })
 
 const rootReducer = (state, action) => {
