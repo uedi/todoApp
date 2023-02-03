@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-const GroupInfo = ({ group, handlePeopleIconPress, handleChatIconPress }) => {
+const GroupInfo = ({ group, handlePeopleIconPress, handleChatIconPress, messageCount }) => {
     return (
         <View style={styles.container}>
             <TouchableNativeFeedback
@@ -9,7 +9,7 @@ const GroupInfo = ({ group, handlePeopleIconPress, handleChatIconPress }) => {
             >
                 <View style={styles.button}>
                     <Ionicons name='chatbox-ellipses' size={23} color='black' />
-                    <Text style={styles.counter}>{group.messages ? group.messages.length : 0}</Text>
+                    <Text style={styles.counter}>{messageCount}</Text>
                 </View>
             </TouchableNativeFeedback>
             <TouchableNativeFeedback

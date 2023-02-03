@@ -15,6 +15,7 @@ const Group = ({ route, navigation }) => {
     const messages = useSelector(state => state.messages)
     const id = route.params?.id
     const dispatch = useDispatch()
+    const messageCount = group && messages[group.id] ? messages[group.id].length : null
 
     useEffect(() => {
         if(groups) {
@@ -69,6 +70,7 @@ const Group = ({ route, navigation }) => {
                 group={group}
                 handlePeopleIconPress={handlePeopleIconPress}
                 handleChatIconPress={handleChatIconPress}
+                messageCount={messageCount}
             />
             <Text style={styles.topic}>Todos</Text>
             <TodoList todos={group.todos} updateTodo={handleUpdateTodo}/>
