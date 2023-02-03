@@ -1,10 +1,26 @@
 import { View, StyleSheet } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import MessageInput from './MessageInput'
+import messagesService from '../../services/messages'
+import { addGroupMessage } from '../../reducers/messagesReducer'
 
-const Messages = () => {
+const Messages = ({ route }) => {
+    const groupId = route.params.groupId
+    const messages = useSelector(state => state.messages)
+    const groupMessages = messages[groupId] || []
+    const dispatch = useDispatch()
 
     const sendMessage = msg => {
-        console.log('send', msg)
+        messagesService.sendMessage({
+            groupId: groupId,
+            message: msg
+        })
+        .then(response => {
+            dispatch(addGroupMessage(groupId, response))
+        })
+        .catch(error => {
+            console.log('error in send message', error)
+        })
     }
 
     return (
