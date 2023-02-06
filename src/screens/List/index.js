@@ -6,6 +6,7 @@ import todosService from '../../services/todos'
 import { updateTodo } from '../../reducers/listsReducer'
 import { useEffect, useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
+import { deleteTodo } from '../../reducers/listsReducer'
 
 const List = ({ route, navigation }) => {
     const [list, setList] = useState()
@@ -38,7 +39,14 @@ const List = ({ route, navigation }) => {
     }
 
     const handleDeleteTodo = (id) => {
-        console.log('delete', id)
+        todosService.deleteTodo(id)
+        .then(() => {})
+        .catch(error => {
+            console.log('error in delete todo', error)
+        })
+        .finally(() => {
+            dispatch(deleteTodo(list.id, id))
+        })
     }
 
     if(!list) {
