@@ -1,8 +1,9 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 import CheckBox from 'expo-checkbox'
 import { format } from 'date-fns'
+import { MaterialIcons } from '@expo/vector-icons'
 
-const TodoListItem = ({ todo, updateTodo }) => {
+const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete }) => {
 
     const startDate = todo.start ? Date.parse(todo.start) : null
     const endDate = todo.end ? Date.parse(todo.end) : null
@@ -14,6 +15,20 @@ const TodoListItem = ({ todo, updateTodo }) => {
         })
     }
 
+    const handleDelete = () => {
+        deleteTodo(todo.id)
+    }
+
+    const DeleteButton = () => (
+        <TouchableNativeFeedback
+            onPress={handleDelete}
+        >
+            <View style={styles.button}>
+                <MaterialIcons name='delete' size={24} color='red' />
+            </View>
+        </TouchableNativeFeedback>
+    )
+
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -22,6 +37,7 @@ const TodoListItem = ({ todo, updateTodo }) => {
                     value={todo.done}
                     onValueChange={handleValueChange}
                 />
+                {showDelete && <DeleteButton />}
             </View>
             { (todo.start || todo.end) &&
                 <View style={[styles.row, { marginTop: 5 }]}>
@@ -52,11 +68,19 @@ const styles = StyleSheet.create({
     },
     todoName: {
         color: '#000',
-        fontSize: 17
+        fontSize: 17,
+        flex: 1
     },
     todoInfo: {
         color: '#000',
         fontSize: 14
+    },
+    button: {
+        marginLeft: 15,
+        padding: 1,
+        borderWidth: 1,
+        borderRadius: 1,
+        borderColor: '#ddd'
     }
 })
 

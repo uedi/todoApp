@@ -5,7 +5,7 @@ const ItemSeparator = () => (
     <View style={{ height: 20 }} />
 )
 
-const TodoList = ({ todos, updateTodo }) => {
+const TodoList = ({ todos, updateTodo, deleteTodo, showDelete }) => {
     if(!todos) {
         return null
     }
@@ -15,7 +15,12 @@ const TodoList = ({ todos, updateTodo }) => {
     }
 
     const renderItem = ({ item, index }) => (
-        <TodoListItem todo={item} updateTodo={handleUpdate} />
+        <TodoListItem
+            todo={item}
+            updateTodo={handleUpdate}
+            deleteTodo={deleteTodo}
+            showDelete={showDelete}
+        />
     )
 
     return (
