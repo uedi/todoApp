@@ -39,6 +39,7 @@ const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete, todoClicked })
                         <Text style={styles.todoName}>{todo.name}</Text>
                     </View>
                 </TouchableNativeFeedback>
+                <View style={{ flex: 1}} />
                 <CheckBox
                     value={todo.done}
                     onValueChange={handleValueChange}
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         paddingHorizontal: 4,
         backgroundColor: '#fff',
-        elevation: 2
+        elevation: 2,
     },
     todoInfo: {
         color: '#000',
