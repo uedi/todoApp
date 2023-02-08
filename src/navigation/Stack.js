@@ -15,6 +15,7 @@ import AddContactManual from '../screens/AddContactManual'
 import AddContactScan from '../screens/AddContactScan'
 import GroupMembers from '../screens/GroupMembers'
 import Messages from '../screens/Messages'
+import MyId from '../screens/MyId'
 
 const StackNav = createStackNavigator()
 
@@ -36,6 +37,9 @@ const Stack = () => {
             <StackNav.Screen name='About' component={About} />
             <StackNav.Screen name='Settings' component={Settings} />
             <StackNav.Screen name='Account' component={Account} />
+            <StackNav.Screen name='MyId' component={MyId}
+                options={{ title: 'My ID' }}
+            />
             <StackNav.Screen name='Group' component={Group}
                 options={({ route }) => ({ title: route.params?.name })}
             />
