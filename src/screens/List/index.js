@@ -70,6 +70,7 @@ const List = ({ route, navigation }) => {
                 updateTodo={handleUpdateTodo}
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
+                todoClicked={(id) => navigation.navigate('Todo', { id: id })}
             />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>

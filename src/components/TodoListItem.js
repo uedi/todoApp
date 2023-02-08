@@ -3,7 +3,7 @@ import CheckBox from 'expo-checkbox'
 import { format } from 'date-fns'
 import { MaterialIcons } from '@expo/vector-icons'
 
-const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete }) => {
+const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete, todoClicked }) => {
 
     const startDate = todo.start ? Date.parse(todo.start) : null
     const endDate = todo.end ? Date.parse(todo.end) : null
@@ -32,7 +32,13 @@ const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete }) => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <Text style={styles.todoName}>{todo.name}</Text>
+                <TouchableNativeFeedback
+                    onPress={() => todoClicked(todo.id)}
+                >
+                    <View style={styles.todoButton}>
+                        <Text style={styles.todoName}>{todo.name}</Text>
+                    </View>
+                </TouchableNativeFeedback>
                 <CheckBox
                     value={todo.done}
                     onValueChange={handleValueChange}
@@ -70,6 +76,12 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 17,
         flex: 1
+    },
+    todoButton: {
+        paddingVertical: 2,
+        paddingHorizontal: 4,
+        backgroundColor: '#fff',
+        elevation: 2
     },
     todoInfo: {
         color: '#000',

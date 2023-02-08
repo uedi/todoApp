@@ -5,7 +5,7 @@ const ItemSeparator = () => (
     <View style={{ height: 20 }} />
 )
 
-const TodoList = ({ todos, updateTodo, deleteTodo, showDelete }) => {
+const TodoList = ({ todos, updateTodo, deleteTodo, showDelete, todoClicked }) => {
     if(!todos) {
         return null
     }
@@ -20,6 +20,7 @@ const TodoList = ({ todos, updateTodo, deleteTodo, showDelete }) => {
             updateTodo={handleUpdate}
             deleteTodo={deleteTodo}
             showDelete={showDelete}
+            todoClicked={todoClicked}
         />
     )
 
