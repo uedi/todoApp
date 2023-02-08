@@ -1,9 +1,13 @@
 import { View, Text, Button, StyleSheet } from 'react-native'
 import { useState } from 'react'
 import Scanner from '../../components/Scanner'
+import { addContact } from '../../reducers/contactsReducer'
+import { useDispatch } from 'react-redux'
+import contactsService from '../../services/contacts'
 
-const AddContactScan = () => {
+const AddContactScan = ({ navigation }) => {
     const [ready, setReady] = useState(false)
+    const dispatch = useDispatch()
 
     if(!ready) {
         return (
@@ -17,9 +21,19 @@ const AddContactScan = () => {
     }
 
     const handleScanResult = (type, data) => {
-        console.log('scanned', type, data)
         setReady(false)
+        contactsService.create({
+            id: data
+        })
+        .then(response => {
+            dispatch(addContact(response))
+            navigation.navigate('Contacts')
+        })
+        .catch(error => {
+            console.log('error in add contact', error)
+        })
     }
+
     return (
         <View style={styles.container}>
             <Scanner

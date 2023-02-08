@@ -11,7 +11,6 @@ const AddContactManual = ({ navigation }) => {
     const handleAddContact = (data) => {
         contactsService.create(data)
         .then(response => {
-            console.log(response)
             dispatch(addContact(response))
             navigation.navigate('Contacts')
         })
