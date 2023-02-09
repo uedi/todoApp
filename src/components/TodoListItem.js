@@ -33,7 +33,7 @@ const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete, todoClicked })
         <View style={styles.container}>
             <View style={styles.row}>
                 <TouchableNativeFeedback
-                    onPress={() => todoClicked(todo.id)}
+                    onPress={() => todoClicked(todo)}
                 >
                     <View style={styles.todoButton}>
                         <Text style={styles.todoName}>{todo.name}</Text>

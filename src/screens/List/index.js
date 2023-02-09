@@ -49,6 +49,15 @@ const List = ({ route, navigation }) => {
         })
     }
 
+    const handleTodoClicked = (todo) => {
+        navigation.navigate('Todo', {
+            id: todo.id,
+            name: todo.name,
+            start: todo.start,
+            end: todo.end
+        })
+    }
+
     if(!list) {
         return null
     }
@@ -70,7 +79,7 @@ const List = ({ route, navigation }) => {
                 updateTodo={handleUpdateTodo}
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
-                todoClicked={(id) => navigation.navigate('Todo', { id: id })}
+                todoClicked={handleTodoClicked}
             />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
