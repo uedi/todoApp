@@ -53,8 +53,10 @@ const List = ({ route, navigation }) => {
         navigation.navigate('Todo', {
             id: todo.id,
             name: todo.name,
+            done: todo.done,
             start: todo.start,
-            end: todo.end
+            end: todo.end,
+            originName: list.name
         })
     }
 

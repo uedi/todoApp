@@ -60,6 +60,17 @@ const Group = ({ route, navigation }) => {
         })
     }
 
+    const handleTodoClicked = (todo) => {
+        navigation.navigate('Todo', {
+            id: todo.id,
+            name: todo.name,
+            done: todo.done,
+            start: todo.start,
+            end: todo.end,
+            originName: group.name
+        })
+    }
+
     if(!group) {
         return null
     }
@@ -73,7 +84,11 @@ const Group = ({ route, navigation }) => {
                 messageCount={messageCount}
             />
             <Text style={styles.topic}>Todos</Text>
-            <TodoList todos={group.todos} updateTodo={handleUpdateTodo}/>
+            <TodoList
+                todos={group.todos}
+                updateTodo={handleUpdateTodo}
+                todoClicked={handleTodoClicked}
+            />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
     )

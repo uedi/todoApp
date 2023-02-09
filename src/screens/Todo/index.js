@@ -4,15 +4,21 @@ import { View, StyleSheet, Text, TextInput, KeyboardAvoidingView, Button,
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker'
 import { MaterialIcons } from '@expo/vector-icons'
 import { format } from 'date-fns'
+import { useDispatch } from 'react-redux'
+import todosService from '../../services/todos'
+import { updateGroupTodo } from '../../reducers/groupsReducer'
+import { updateTodo } from '../../reducers/listsReducer'
 
-const Todo = ({ route }) => {
+const Todo = ({ route, navigation }) => {
     const id = route.params.id
     const name = route.params.name
+    const done = route.params.done
     const start = route.params.start ? new Date(route.params.start) : null
     const end = route.params.end ? new Date(route.params.end) : null
     const [newName, setNewName] = useState(name)
     const [newStart, setNewStart] = useState(start)
     const [newEnd, setNewEnd] = useState(end)
+    const dispatch = useDispatch()
     const nowDate = new Date()
     const nameChanged = name !== newName
     const startChanged = start !== newStart
@@ -50,7 +56,27 @@ const Todo = ({ route }) => {
     }
 
     const handleUpdate = () => {
-        console.log('update')
+        todosService.updateTodo({
+            id: id,
+            done: done,
+            name: newName,
+            start: newStart,
+            end: newEnd
+        })
+        .then(response => {
+            if(response.groupId) {
+                dispatch(updateGroupTodo(response.groupId, response))
+                navigation.navigate('Group', { name: route.params.originName, id: response.groupId })
+            } else if(response.listId) {
+                dispatch(updateTodo(response.listId, response))
+                navigation.navigate('List', { name: route.params.originName, id: response.listId })
+            } else {
+                console.log('todo has no group or list')
+            }
+        })
+        .catch(error => {
+            console.log('error in update todo', error)
+        })
     }
 
     return (
