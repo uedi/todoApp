@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
 import todosService from '../../services/todos'
-import { updateTodo } from '../../reducers/listsReducer'
+import listsService from '../../services/lists'
+import { updateTodo, deleteTodo, updateList } from '../../reducers/listsReducer'
 import { useEffect, useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
-import { deleteTodo } from '../../reducers/listsReducer'
+import UpdateList from './UpdateList'
 
 const List = ({ route, navigation }) => {
     const [list, setList] = useState()
+    const [updateOpen, setUpdateOpen] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const lists = useSelector(state => state.lists)
     const id = route.params?.id
@@ -60,18 +62,38 @@ const List = ({ route, navigation }) => {
         })
     }
 
+    const handleUpdate = (data) => {
+        setUpdateOpen(false)
+        listsService.update(list.id, data)
+        .then(response => {
+            dispatch(updateList(response))
+        })
+        .catch(error => {
+            console.log('error in update list', error)
+        })
+    }
+
     if(!list) {
         return null
     }
 
     return (
         <View style={styles.container}>
+            <View style={styles.toolRow}>
+                <TouchableNativeFeedback
+                    onPress={() => setUpdateOpen(!updateOpen)}
+                >
+                    <View style={styles.button}>
+                    <MaterialIcons name='edit' size={24} color='black' />
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
             <View style={styles.topicRow}>
                 <Text style={styles.topic}>Todos</Text>
                 <TouchableNativeFeedback
                     onPress={() => setShowDelete(!showDelete)}
                 >
-                    <View style={styles.deleteButton}>
+                    <View style={styles.button}>
                         <MaterialIcons name='delete' size={22} color='gray' />
                     </View>
                 </TouchableNativeFeedback>
@@ -84,6 +106,12 @@ const List = ({ route, navigation }) => {
                 todoClicked={handleTodoClicked}
                 color={list.color}
             />
+            <UpdateList
+                isOpen={updateOpen}
+                close={() => setUpdateOpen(false)}
+                update={handleUpdate}
+                list={list}
+            />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
     )
@@ -92,6 +120,11 @@ const List = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    toolRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10
     },
     topicRow: {
         flexDirection: 'row',
@@ -110,7 +143,7 @@ const styles = StyleSheet.create({
         left: Dimensions.get('window').width / 2 - 30,
         bottom: 15
     },
-    deleteButton: {
+    button: {
         padding: 1,
         borderWidth: 1,
         borderRadius: 1,
