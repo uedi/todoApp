@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 import TodoStatus from '../../components/TodoStatus'
+import { Ionicons } from '@expo/vector-icons'
 
 const GroupListItem = ({ group, clicked }) => {
 
@@ -12,7 +13,14 @@ const GroupListItem = ({ group, clicked }) => {
                 onPress={() => clicked(group)}
             >
                 <View style={styles.innerContainer}>
-                    <Text style={styles.groupName}>{group.name}</Text>
+                    <View style={styles.row}>
+                        <Text style={styles.groupName}>{group.name}</Text>
+                        <View style={styles.groupMembersContainer}>
+                            <Ionicons name='people' size={21} color='black' />
+                            <Text style={styles.counter}>{group.users ? group.users.length : 0}</Text>
+                        </View>
+                        
+                    </View>
                     <TodoStatus doneCount={doneCount} totalCount={todosCount} />
                 </View>
             </TouchableNativeFeedback>
@@ -37,6 +45,19 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: '700',
         marginBottom: 5
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    groupMembersContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    counter: {
+        marginLeft: 2,
+        fontSize: 17
     }
 })
 
