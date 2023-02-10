@@ -82,6 +82,7 @@ const List = ({ route, navigation }) => {
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
                 todoClicked={handleTodoClicked}
+                color={list.color}
             />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>

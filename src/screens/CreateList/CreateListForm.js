@@ -1,30 +1,24 @@
 import { useState } from "react"
 import {View, StyleSheet, TextInput, Button, Text } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { useSelector } from "react-redux"
+import { backgroundColorsForSelect } from "../../utils/colors"
 
 const CreateListForm = ({ createList }) => {
     const [name, setName] = useState('')
-    const [groupId, setGroupId] = useState()
-    const [groupPickerOpen, setGroupPickerOpen] = useState(false)
-
-    const groups = useSelector(state => state.groups)
-
-    const pickerContent = groups ?
-        groups.map(g => ({ value: g.id, label: g.name }))
-        : []
+    const [color, setColor] = useState()
+    const [colorPickerOpen, setColorPickerOpen] = useState(false)
 
     const handleCreate = () => {
         if(name !== '') {
             createList({
                 name: name,
-                groupId: groupId
+                color: color ? color : null
             })
         }
     }
 
-    const handleSetGroup = valueFunc => {
-        setGroupId(valueFunc())
+    const handleSetColor = valueFunc => {
+        setColor(valueFunc())
     }
 
     return (
@@ -37,14 +31,14 @@ const CreateListForm = ({ createList }) => {
                 value={name}
                 onChangeText={setName}
             />
-            <Text style={styles.text}>Group (optional)</Text>
+            <Text style={styles.text}>Color (optional)</Text>
             <DropDownPicker
-                style={styles.picker}
-                open={groupPickerOpen}
-                setOpen={setGroupPickerOpen}
-                value={groupId}
-                setValue={handleSetGroup}
-                items={pickerContent}
+                style={styles.picker(color)}
+                open={colorPickerOpen}
+                setOpen={setColorPickerOpen}
+                value={color}
+                setValue={handleSetColor}
+                items={backgroundColorsForSelect}
             />
             <View style={styles.button}>
                 <Button
@@ -78,9 +72,10 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         marginBottom: 50
     },
-    picker: {
-        alignSelf: 'stretch'
-    }
+    picker: color => ({
+        alignSelf: 'stretch',
+        backgroundColor: color || ''
+    })
 })
 
 export default CreateListForm

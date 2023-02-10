@@ -6,9 +6,9 @@ const ListListItem = ({ list, clicked }) => {
 
     const todosCount = list.todos ? list.todos.length : 0
     const doneCount = list.todos ? list.todos.reduce((sum, cur) => sum + (cur.done ? 1 : 0), 0) : 0
-
+    const backgroundColor = list.color ? { backgroundColor: list.color } : {}
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, backgroundColor]}>
             <TouchableNativeFeedback
                 onPress={() => clicked(list)}
             >
