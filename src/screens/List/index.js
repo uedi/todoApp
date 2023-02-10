@@ -4,7 +4,7 @@ import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
 import todosService from '../../services/todos'
 import listsService from '../../services/lists'
-import { updateTodo, deleteTodo, updateList } from '../../reducers/listsReducer'
+import { updateTodo, deleteTodo, updateList, deleteList } from '../../reducers/listsReducer'
 import { useEffect, useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import UpdateList from './UpdateList'
@@ -73,6 +73,16 @@ const List = ({ route, navigation }) => {
         })
     }
 
+    const handleDeleteList = () => {
+        const id = list.id
+        setUpdateOpen(false)
+        listsService.remove(id)
+        .then(() => {
+            navigation.navigate('Lists')
+            dispatch(deleteList(id))
+        })
+    }
+
     if(!list) {
         return null
     }
@@ -111,6 +121,7 @@ const List = ({ route, navigation }) => {
                 close={() => setUpdateOpen(false)}
                 update={handleUpdate}
                 list={list}
+                deleteList={handleDeleteList}
             />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>

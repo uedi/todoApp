@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Keyboard, Button,
+import { View, Text, StyleSheet, TextInput, Keyboard, Button, Pressable,
     TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
 import Modal from 'react-native-modal'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { backgroundColorsForSelect } from "../../utils/colors"
 
-const UpdateList = ({ list, update, isOpen, close }) => {
+const UpdateList = ({ list, update, isOpen, close, deleteList }) => {
     const [newName, setNewName] = useState(list?.name)
     const [newColor, setNewColor] = useState(list?.color)
     const [colorPickerOpen, setColorPickerOpen] = useState(false)
@@ -39,7 +39,15 @@ const UpdateList = ({ list, update, isOpen, close }) => {
                     onPress={Keyboard.dismiss}
                 >
                     <View style={styles.innerContainer}>
-                        <Text style={styles.topic}>Update list</Text>
+                        <View style={styles.topicRow}>
+                            <Text style={styles.topic}>Update list</Text>
+                            <Pressable
+                                style={styles.deleteButton}
+                                onPress={deleteList}
+                            >
+                                <Text style={styles.deleteText}>Delete list</Text>
+                            </Pressable>
+                        </View>
                         <Text style={styles.label}>Name</Text>
                         <TextInput
                             style={styles.textInput}
@@ -83,6 +91,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
         opacity: 0.5
     },
+    topicRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
     topic: {
         fontSize: 17
     },
@@ -106,7 +119,16 @@ const styles = StyleSheet.create({
         marginTop: 5,
         alignSelf: 'stretch',
         backgroundColor: color || ''
-    })
+    }),
+    deleteButton: {
+        padding: 3,
+        borderColor: '#eee',
+        borderWidth: 2,
+        borderRadius: 5
+    },
+    deleteText: {
+        color: 'red'
+    }
 })
 
 export default UpdateList

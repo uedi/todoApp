@@ -18,4 +18,9 @@ const update = async (id, data) => {
     return response.data
 }
 
-export default { getAll, create, update }
+const remove = async (id) => {
+    const response = await axios.delete(`${listsApiUrl}/${id}`, header())
+    return response.data
+}
+
+export default { getAll, create, update, remove }
