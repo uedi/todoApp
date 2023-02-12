@@ -92,6 +92,7 @@ const Group = ({ route, navigation }) => {
         groupsService.update(group.id, data)
         .then(response => {
             dispatch(updateGroup(response))
+            navigation.setOptions({ title: response.name })
         })
         .catch(error => {
             console.log('error in update group', error)

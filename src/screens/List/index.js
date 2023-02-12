@@ -67,6 +67,7 @@ const List = ({ route, navigation }) => {
         listsService.update(list.id, data)
         .then(response => {
             dispatch(updateList(response))
+            navigation.setOptions({ title: response.name })
         })
         .catch(error => {
             console.log('error in update list', error)
