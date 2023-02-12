@@ -10,10 +10,12 @@ import { MaterialIcons } from '@expo/vector-icons'
 import messagesService from '../../services/messages'
 import { setGroupMessages } from '../../reducers/messagesReducer'
 import { deleteGroupTodo } from '../../reducers/groupsReducer'
+import UpdateGroup from './UpdateGroup'
 
 const Group = ({ route, navigation }) => {
     const [group, setGroup] = useState()
     const [showDelete, setShowDelete] = useState(false)
+    const [updateOpen, setUpdateOpen] = useState(false)
     const groups = useSelector(state => state.groups)
     const messages = useSelector(state => state.messages)
     const id = route.params?.id
@@ -85,12 +87,25 @@ const Group = ({ route, navigation }) => {
         })
     }
 
+    const handleUpdate = (data) => {
+        console.log(data)
+    }
+
     if(!group) {
         return null
     }
 
     return (
         <View style={styles.container}>
+            <View style={styles.toolRow}>
+                <TouchableNativeFeedback
+                    onPress={() => setUpdateOpen(!updateOpen)}
+                >
+                    <View style={styles.button}>
+                        <MaterialIcons name='edit' size={24} color='black' />
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
             <GroupInfo
                 group={group}
                 handlePeopleIconPress={handlePeopleIconPress}
@@ -114,6 +129,12 @@ const Group = ({ route, navigation }) => {
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
             />
+            <UpdateGroup
+                group={group}
+                isOpen={updateOpen}
+                close={() => setUpdateOpen(false)}
+                update={handleUpdate}
+            />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
     )
@@ -122,6 +143,11 @@ const Group = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    toolRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10
     },
     topicRow: {
         flexDirection: 'row',
@@ -141,6 +167,12 @@ const styles = StyleSheet.create({
         bottom: 15
     },
     deleteButton: {
+        padding: 1,
+        borderWidth: 1,
+        borderRadius: 1,
+        borderColor: '#ddd'
+    },
+    button: {
         padding: 1,
         borderWidth: 1,
         borderRadius: 1,

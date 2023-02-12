@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
 import QRCode from 'react-native-qrcode-svg'
 
