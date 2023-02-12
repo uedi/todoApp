@@ -18,4 +18,9 @@ const addMember = async (id, data) => {
     return response.data
 }
 
-export default { getAll, create, addMember }
+const update = async (id, data) => {
+    const response = await axios.put(`${groupsApiUrl}/${id}`, data, header())
+    return response.data
+}
+
+export default { getAll, create, addMember, update }

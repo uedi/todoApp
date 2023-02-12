@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import GroupInfo from './GroupInfo'
 import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
-import { updateGroupTodo } from '../../reducers/groupsReducer'
+import { updateGroupTodo, deleteGroupTodo, updateGroup } from '../../reducers/groupsReducer'
 import todosService from '../../services/todos'
 import { MaterialIcons } from '@expo/vector-icons'
 import messagesService from '../../services/messages'
+import groupsService from '../../services/groups'
 import { setGroupMessages } from '../../reducers/messagesReducer'
-import { deleteGroupTodo } from '../../reducers/groupsReducer'
 import UpdateGroup from './UpdateGroup'
 
 const Group = ({ route, navigation }) => {
@@ -87,8 +87,15 @@ const Group = ({ route, navigation }) => {
         })
     }
 
-    const handleUpdate = (data) => {
-        console.log(data)
+    const handleUpdateGroup = (data) => {
+        setUpdateOpen(false)
+        groupsService.update(group.id, data)
+        .then(response => {
+            dispatch(updateGroup(response))
+        })
+        .catch(error => {
+            console.log('error in update group', error)
+        })
     }
 
     if(!group) {
@@ -133,7 +140,7 @@ const Group = ({ route, navigation }) => {
                 group={group}
                 isOpen={updateOpen}
                 close={() => setUpdateOpen(false)}
-                update={handleUpdate}
+                update={handleUpdateGroup}
             />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
