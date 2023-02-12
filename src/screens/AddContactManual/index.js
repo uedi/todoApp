@@ -4,6 +4,7 @@ import AddContactForm from './AddContactForm'
 import { addContact } from '../../reducers/contactsReducer'
 import { useDispatch } from 'react-redux'
 import contactsService from '../../services/contacts'
+import { showError } from '../../reducers/notificationReducer'
 
 const AddContactManual = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const AddContactManual = ({ navigation }) => {
             navigation.navigate('Contacts')
         })
         .catch(error => {
-            console.log('error in add contact', error)
+            dispatch(showError(error))
         })
     }
 

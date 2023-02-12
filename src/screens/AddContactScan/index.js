@@ -4,6 +4,7 @@ import Scanner from '../../components/Scanner'
 import { addContact } from '../../reducers/contactsReducer'
 import { useDispatch } from 'react-redux'
 import contactsService from '../../services/contacts'
+import { showError } from '../../reducers/notificationReducer'
 
 const AddContactScan = ({ navigation }) => {
     const [ready, setReady] = useState(false)
@@ -30,7 +31,7 @@ const AddContactScan = ({ navigation }) => {
             navigation.navigate('Contacts')
         })
         .catch(error => {
-            console.log('error in add contact', error)
+            dispatch(showError(error))
         })
     }
 
