@@ -4,6 +4,7 @@ import Spinner from '../../../components/Spinner'
 import accountService from '../../../services/account'
 import { setUser } from '../../../reducers/userReducer'
 import { useDispatch } from 'react-redux'
+import { showError } from '../../../reducers/notificationReducer'
 
 const LoginWait = ({ navigation, route }) => {
     const credentials = route.params?.credentials
@@ -21,7 +22,7 @@ const LoginWait = ({ navigation, route }) => {
             }
         })
         .catch(error => {
-            console.log('error in login', error)
+            dispatch(showError(error))
             navigation.goBack()
         })
     }, [dispatch])

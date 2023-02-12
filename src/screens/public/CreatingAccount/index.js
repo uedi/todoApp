@@ -4,6 +4,7 @@ import Spinner from '../../../components/Spinner'
 import accountService from '../../../services/account'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../reducers/userReducer'
+import { showError } from '../../../reducers/notificationReducer'
 
 const CreatingAccount = ({ navigation, route }) => {
     const signupData = route.params?.signupData
@@ -21,7 +22,7 @@ const CreatingAccount = ({ navigation, route }) => {
             }
         })
         .catch(error => {
-            console.log('error in signup', error)
+            dispatch(showError(error))
             navigation.goBack()
         })
     }, [dispatch])
