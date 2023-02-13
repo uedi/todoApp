@@ -17,6 +17,7 @@ import GroupMembers from '../screens/GroupMembers'
 import Messages from '../screens/Messages'
 import MyId from '../screens/MyId'
 import Todo from '../screens/Todo'
+import Requests from '../screens/Requests'
 
 const StackNav = createStackNavigator()
 
@@ -69,6 +70,7 @@ const Stack = () => {
                 options={({ route }) => ({ title: `Messages (${route.params?.groupName})`})}
             />
             <StackNav.Screen name='Todo' component={Todo} />
+            <StackNav.Screen name='Requests' component={Requests} />
         </StackNav.Navigator>
     )
 }
