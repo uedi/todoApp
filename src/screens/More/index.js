@@ -10,6 +10,7 @@ const More = ({ navigation }) => {
                 <Link text='About' onPress={() => { navigation.navigate('About') }} />
                 <Link text='Account' onPress={() => { navigation.navigate('Account') }} />
                 <Link text='Settings' onPress={() => { navigation.navigate('Settings') }} />
+                <Link text='Requests' onPress={() => { navigation.navigate('Requests') }} />
                 <Link text='Contacts' onPress={() => { navigation.navigate('Contacts') }} />
                 <Link text='My ID' onPress={() => { navigation.navigate('MyId') }} />
             </ScrollView>
