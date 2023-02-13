@@ -8,17 +8,20 @@ import { useEffect } from 'react'
 import groupService from './services/groups'
 import listService from './services/lists'
 import contactsService from './services/contacts'
+import requestsService from './services/requests'
 import { setGroups } from './reducers/groupsReducer'
 import { setLists } from './reducers/listsReducer'
 import { setContacts } from './reducers/contactsReducer'
 import Notification from './components/Notification'
 import { setToken } from './utils/auth'
+import { setRequests } from './reducers/requestsReducer'
 
 const Main = () => {
     const user = useSelector(state => state.user)
     const groups = useSelector(state => state.groups)
     const lists = useSelector(state => state.lists)
     const contacts = useSelector(state => state.contacts)
+    const requests = useSelector(state => state.requests)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -65,6 +68,17 @@ const Main = () => {
         }
     }, [user, lists, dispatch])
 
+    useEffect(() => {
+        if(user && !requests) {
+            requestsService.getAll()
+            .then(response => {
+                dispatch(setRequests(response))
+            })
+            .catch(error => {
+                console.log('error in get requests', error)
+            })
+        }
+    }, [user, requests, dispatch])
     return (
         <SafeAreaView style={styles.screen}>
             <Notification />
