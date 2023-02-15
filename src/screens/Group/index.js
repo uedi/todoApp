@@ -22,6 +22,7 @@ const Group = ({ route, navigation }) => {
     const id = route.params?.id
     const dispatch = useDispatch()
     const messageCount = group && messages[group.id] ? messages[group.id].length : null
+    const canModify = group?.membership?.owner
 
     useEffect(() => {
         if(groups) {
@@ -120,13 +121,15 @@ const Group = ({ route, navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.toolRow}>
-                <TouchableNativeFeedback
-                    onPress={() => setUpdateOpen(!updateOpen)}
-                >
-                    <View style={styles.button}>
-                        <MaterialIcons name='edit' size={24} color='black' />
-                    </View>
-                </TouchableNativeFeedback>
+                { canModify &&
+                    <TouchableNativeFeedback
+                        onPress={() => setUpdateOpen(!updateOpen)}
+                    >
+                        <View style={styles.button}>
+                            <MaterialIcons name='edit' size={24} color='black' />
+                        </View>
+                    </TouchableNativeFeedback>
+                }
             </View>
             <GroupInfo
                 group={group}
@@ -151,13 +154,15 @@ const Group = ({ route, navigation }) => {
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
             />
-            <UpdateGroup
-                group={group}
-                isOpen={updateOpen}
-                close={() => setUpdateOpen(false)}
-                update={handleUpdateGroup}
-                deleteGroup={handleDeleteGroup}
-            />
+            { canModify &&
+                <UpdateGroup
+                    group={group}
+                    isOpen={updateOpen}
+                    close={() => setUpdateOpen(false)}
+                    update={handleUpdateGroup}
+                    deleteGroup={handleDeleteGroup}
+                />
+            }
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
     )
