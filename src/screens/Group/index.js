@@ -99,6 +99,12 @@ const Group = ({ route, navigation }) => {
         })
     }
 
+    const handleDeleteGroup = () => {
+        const id = group.id
+        setUpdateOpen(false)
+        console.log('delete', id)
+    }
+
     if(!group) {
         return null
     }
@@ -142,6 +148,7 @@ const Group = ({ route, navigation }) => {
                 isOpen={updateOpen}
                 close={() => setUpdateOpen(false)}
                 update={handleUpdateGroup}
+                deleteGroup={handleDeleteGroup}
             />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>
