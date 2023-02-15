@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import GroupInfo from './GroupInfo'
 import TodoList from '../../components/TodoList'
 import AddButton from '../../components/AddButton'
-import { updateGroupTodo, deleteGroupTodo, updateGroup } from '../../reducers/groupsReducer'
+import { updateGroupTodo, deleteGroupTodo, updateGroup,
+    deleteGroup } from '../../reducers/groupsReducer'
 import todosService from '../../services/todos'
 import { MaterialIcons } from '@expo/vector-icons'
 import messagesService from '../../services/messages'
@@ -102,7 +103,14 @@ const Group = ({ route, navigation }) => {
     const handleDeleteGroup = () => {
         const id = group.id
         setUpdateOpen(false)
-        console.log('delete', id)
+        groupsService.remove(id)
+        .then(() => {
+            navigation.navigate('Groups')
+            dispatch(deleteGroup(id))
+        })
+        .catch(error => {
+            console.log('error in delete group')
+        })
     }
 
     if(!group) {
