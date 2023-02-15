@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text, Pressable } from 'react-native'
 import { useSelector } from 'react-redux'
+import Header from '../../components/Header'
 
 const ShowMemberShipRequests = ({ count, onPress }) => (
     <Pressable
@@ -21,6 +22,7 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <Header text='Home' />
             { membershipRequests > 0 &&
             <View style={styles.requestContainer}>
                 <Text>Requests</Text>
@@ -37,7 +39,6 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 30,
     },
     requestContainer: {
         alignItems: 'flex-start'
