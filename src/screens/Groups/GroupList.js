@@ -20,6 +20,7 @@ const GroupList = ({ groups, groupClicked }) => {
             ItemSeparatorComponent={ItemSeparator}
             renderItem={renderItem}
             keyExtractor={(item, index) => item.id}
+            listKey={(item, index) => item.id}
             contentContainerStyle={{ paddingVertical: 15 }}
         />
     )
