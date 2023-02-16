@@ -10,15 +10,20 @@ const RequestsIndicator = ({ count, onPress }) => (
             }
         ]}
     >
-        <Text>New membership requests ({ count })</Text>
+        <Text style={styles.text}>New membership requests ({ count })</Text>
     </Pressable>
 )
 
 const styles = StyleSheet.create({
     button: {
-        elevation: 1,
+        elevation: 2,
         padding: 10,
+        paddingLeft: 15,
         borderRadius: 5
+    },
+    text: {
+        color: '#2196F3',
+        fontWeight: '500'
     }
 })
 
