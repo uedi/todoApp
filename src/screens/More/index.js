@@ -7,9 +7,7 @@ const More = ({ navigation }) => {
         <View style={styles.container}>
             <Header text={'More'} />
             <ScrollView style={styles.links}>
-                <Link text='About' onPress={() => { navigation.navigate('About') }} />
                 <Link text='Account' onPress={() => { navigation.navigate('Account') }} />
-                <Link text='Settings' onPress={() => { navigation.navigate('Settings') }} />
                 <Link text='Requests' onPress={() => { navigation.navigate('Requests') }} />
                 <Link text='My ID' onPress={() => { navigation.navigate('MyId') }} />
             </ScrollView>
