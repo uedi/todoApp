@@ -65,12 +65,14 @@ const GroupMembers = ({ route }) => {
 
     return (
         <View style={styles.container}>
+            { isOwner &&
             <AddMember visible={addVisible}
                 contacts={contacts}
                 close={() => setAddVisible(false)}
                 addClicked={handleAddClicked}
                 memberIds={memberIds}
             />
+            }
             <MemberDetails
                 member={memberToShow}
                 close={closeMemberDetails}
@@ -79,7 +81,9 @@ const GroupMembers = ({ route }) => {
                 myId={myId}
             />
             <MemberList members={group?.users} memberClicked={memberClicked} myId={myId} />
+            { isOwner &&
             <AddButton onPress={() => setAddVisible(true)} style={styles.addButton} />
+            }
         </View>
     )
 }
