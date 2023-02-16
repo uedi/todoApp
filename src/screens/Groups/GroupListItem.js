@@ -6,9 +6,10 @@ const GroupListItem = ({ group, clicked }) => {
 
     const todosCount = group.todos ? group.todos.length : 0
     const doneCount = group.todos ? group.todos.reduce((sum, cur) => sum + (cur.done ? 1 : 0), 0) : 0
+    const backgroundColor = group.color ? { backgroundColor: group.color } : {}
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, backgroundColor]}>
             <TouchableNativeFeedback
                 onPress={() => clicked(group)}
             >

@@ -1,16 +1,24 @@
 import { useState } from "react"
-import {View, StyleSheet, TextInput, Button, Text } from 'react-native'
+import { View, StyleSheet, TextInput, Button, Text } from 'react-native'
+import DropDownPicker from 'react-native-dropdown-picker'
+import { backgroundColorsForSelect } from "../../utils/colors"
 
 const CreateGroupForm = ({ createGroup }) => {
-
     const [name, setName] = useState('')
+    const [color, setColor] = useState()
+    const [colorPickerOpen, setColorPickerOpen] = useState(false)
 
     const handleCreate = () => {
         if(name !== '') {
             createGroup({
-                name: name
+                name: name,
+                color: color ? color : null
             })
         }
+    }
+
+    const handleSetColor = valueFunc => {
+        setColor(valueFunc())
     }
 
     return (
@@ -22,6 +30,15 @@ const CreateGroupForm = ({ createGroup }) => {
                 textAlign='center'
                 value={name}
                 onChangeText={setName}
+            />
+            <Text style={styles.text}>Color (optional)</Text>
+            <DropDownPicker
+                style={styles.picker(color)}
+                open={colorPickerOpen}
+                setOpen={setColorPickerOpen}
+                value={color}
+                setValue={handleSetColor}
+                items={backgroundColorsForSelect}
             />
             <View style={styles.button}>
                 <Button
@@ -54,7 +71,11 @@ const styles = StyleSheet.create({
         width: 200,
         marginVertical: 15,
         marginBottom: 50
-    }
+    },
+    picker: color => ({
+        alignSelf: 'stretch',
+        backgroundColor: color || ''
+    })
 })
 
 export default CreateGroupForm

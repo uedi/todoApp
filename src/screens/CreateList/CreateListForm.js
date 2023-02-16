@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {View, StyleSheet, TextInput, Button, Text } from 'react-native'
+import { View, StyleSheet, TextInput, Button, Text } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { backgroundColorsForSelect } from "../../utils/colors"
 
