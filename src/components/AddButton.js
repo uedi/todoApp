@@ -1,17 +1,21 @@
 import React from 'react'
-import { StyleSheet, TouchableHighlight, Text } from 'react-native'
+import { StyleSheet, Pressable, Text } from 'react-native'
 
 const AddButton = ({ onPress, style, textStyle }) => {
     const buttonStyles = [styles.button, style]
     const textStyles = [styles.text, textStyle]
     return (
-        <TouchableHighlight
-            style={buttonStyles}
+        <Pressable
+            style={({ pressed}) => [buttonStyles,
+                {
+                    backgroundColor: pressed ? '#eee' : '#fff'
+                }
+            ]}
             onPress={onPress}
         >
             <Text style={textStyles}>+</Text>
 
-        </TouchableHighlight>
+        </Pressable>
     )
 }
 
