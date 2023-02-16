@@ -2,6 +2,7 @@ import { View, StyleSheet, Dimensions } from 'react-native'
 import ContactList from './ContactList'
 import { useSelector } from 'react-redux'
 import AddButton from '../../components/AddButton'
+import Header from '../../components/Header'
 
 const Contacts = ({ navigation }) => {
     const contacts = useSelector(state => state.contacts)
@@ -16,6 +17,7 @@ const Contacts = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <Header text='Contacts' />
             <ContactList contacts={contacts} contactClicked={contactClicked} />
             <AddButton onPress={handleAddButton} style={styles.addButton} />
         </View>

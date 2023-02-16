@@ -2,7 +2,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Tabs from './Tabs'
 import CreateGroup from '../screens/CreateGroup'
 import CreateList from '../screens/CreateList'
-import Contacts from '../screens/Contacts'
 import About from '../screens/About'
 import Settings from '../screens/Settings'
 import Account from '../screens/Account'
@@ -35,7 +34,6 @@ const Stack = () => {
             <StackNav.Screen name='CreateList' component={CreateList}
                 options={{ title: 'Create new list' }}
             />
-            <StackNav.Screen name='Contacts' component={Contacts} />
             <StackNav.Screen name='About' component={About} />
             <StackNav.Screen name='Settings' component={Settings} />
             <StackNav.Screen name='Account' component={Account} />
