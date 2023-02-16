@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, TextInput, Keyboard, Button, Pressable,
     TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
 import Modal from 'react-native-modal'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { backgroundColorsForSelect } from "../../utils/colors"
+import { backgroundColorsForSelect } from '../../utils/colors'
+import DeleteButton from '../../components/DeleteButton'
 
 const UpdateList = ({ list, update, isOpen, close, deleteList }) => {
     const [newName, setNewName] = useState(list?.name)
@@ -41,12 +42,10 @@ const UpdateList = ({ list, update, isOpen, close, deleteList }) => {
                     <View style={styles.innerContainer}>
                         <View style={styles.topicRow}>
                             <Text style={styles.topic}>Update list</Text>
-                            <Pressable
-                                style={styles.deleteButton}
+                            <DeleteButton
                                 onPress={deleteList}
-                            >
-                                <Text style={styles.deleteText}>Delete list</Text>
-                            </Pressable>
+                                title='Delete list'
+                            />
                         </View>
                         <Text style={styles.label}>Name</Text>
                         <TextInput
@@ -119,16 +118,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         alignSelf: 'stretch',
         backgroundColor: color || ''
-    }),
-    deleteButton: {
-        padding: 3,
-        borderColor: '#eee',
-        borderWidth: 2,
-        borderRadius: 5
-    },
-    deleteText: {
-        color: 'red'
-    }
+    })
 })
 
 export default UpdateList

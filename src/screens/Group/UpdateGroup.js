@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Keyboard, Button, Pressable,
     TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
 import Modal from 'react-native-modal'
+import DeleteButton from '../../components/DeleteButton'
 
 const UpdateGroup = ({ group, update, isOpen, close, deleteGroup }) => {
     const [newName, setNewName] = useState(group?.name)
@@ -30,12 +31,10 @@ const UpdateGroup = ({ group, update, isOpen, close, deleteGroup }) => {
                     <View style={styles.innerContainer}>
                         <View style={styles.topicRow}>
                             <Text style={styles.topic}>Update group</Text>
-                            <Pressable
-                                style={styles.deleteButton}
+                            <DeleteButton
+                                title='Delete group'
                                 onPress={deleteGroup}
-                            >
-                                <Text style={styles.deleteText}>Delete group</Text>
-                            </Pressable>
+                            />
                         </View>
                         <Text style={styles.label}>Name</Text>
                         <TextInput
@@ -94,15 +93,6 @@ const styles = StyleSheet.create({
         width: 200,
         marginBottom: 10,
         marginTop: 30
-    },
-    deleteButton: {
-        padding: 3,
-        borderColor: '#eee',
-        borderWidth: 2,
-        borderRadius: 5
-    },
-    deleteText: {
-        color: 'red'
     }
 })
 
