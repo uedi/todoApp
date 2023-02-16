@@ -4,27 +4,29 @@ const ItemSeparator = () => (
     <View style={{ height: 20 }} />
 )
 
-const MemberListItem = ({ member, clicked }) => {
+const MemberListItem = ({ member, clicked, myId }) => {
     return (
         <View style={styles.container}>
             <TouchableNativeFeedback
                 onPress={() => clicked(member)}
             >
                 <View style={styles.innerContainer}>
-                    <Text style={styles.name}>{member.name}</Text>
+                    <Text style={styles.name}>
+                        {member.name}{myId === member.id ? ' (me)' : ''}
+                    </Text>
                 </View>
             </TouchableNativeFeedback>
         </View>
     )
 }
 
-const MemberList = ({ members, memberClicked }) => {
+const MemberList = ({ members, memberClicked, myId }) => {
     if(!members) {
         return null
     }
 
     const renderItem = ({ item, index }) => (
-        <MemberListItem member={item} clicked={memberClicked} />
+        <MemberListItem member={item} clicked={memberClicked} myId={myId} />
     )
 
     return (
