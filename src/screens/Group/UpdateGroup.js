@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Keyboard, Button, Pressable,
+import { View, Text, StyleSheet, TextInput, Keyboard, Button,
     TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
 import Modal from 'react-native-modal'
 import DeleteButton from '../../components/DeleteButton'
