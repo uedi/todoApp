@@ -20,6 +20,7 @@ const GroupMembers = ({ route }) => {
     const dispatch = useDispatch()
     const memberIds = group?.users ? group.users.map(u => u.id) : []
     const myId = user?.user?.id
+    const isOwner = group?.membership.owner
 
     useEffect(() => {
         if(groups) {
@@ -50,6 +51,18 @@ const GroupMembers = ({ route }) => {
         })
     }
 
+    const handleRemoveContact = id => {
+        closeMemberDetails()
+        groupsService.removeMember(group.id, id)
+        .then(response => {
+            dispatch(setMembers(group.id, response))
+            dispatch(showSuccess('Member removed'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
+        })
+    }
+
     return (
         <View style={styles.container}>
             <AddMember visible={addVisible}
@@ -58,7 +71,13 @@ const GroupMembers = ({ route }) => {
                 addClicked={handleAddClicked}
                 memberIds={memberIds}
             />
-            <MemberDetails member={memberToShow} close={closeMemberDetails} />
+            <MemberDetails
+                member={memberToShow}
+                close={closeMemberDetails}
+                removeContact={handleRemoveContact}
+                showRemove={isOwner}
+                myId={myId}
+            />
             <MemberList members={group?.users} memberClicked={memberClicked} myId={myId} />
             <AddButton onPress={() => setAddVisible(true)} style={styles.addButton} />
         </View>
