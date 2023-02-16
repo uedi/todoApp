@@ -1,15 +1,19 @@
 import { useState } from 'react'
 import { View, StyleSheet, Text, Dimensions,
     TouchableNativeFeedback } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import QRCode from 'react-native-qrcode-svg'
 import { MaterialIcons } from '@expo/vector-icons'
 import RemoveContact from './RemoveContact'
+import contactsService from '../../services/contacts'
+import { removeContact } from '../../reducers/contactsReducer'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
-const Contact = ({ route }) => {
+const Contact = ({ route, navigation }) => {
     const contacts = useSelector(state => state.contacts)
     const [removeOpen, setRemoveOpen] = useState(false)
     const id = route.params?.id
+    const dispatch = useDispatch()
     const contact = contacts && contacts.find(c => c.contactId.toString() === id)
     const size = Dimensions.get('window').width / 2.5
 
@@ -19,7 +23,15 @@ const Contact = ({ route }) => {
 
     const handleRemoveContact = (id) => {
         setRemoveOpen(false)
-        console.log('remove', id)
+        contactsService.remove(id)
+        .then(() => {
+            navigation.navigate('Contacts')
+            dispatch(removeContact(id))
+            dispatch(showSuccess('Contact removed'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
+        })
     }
 
     return (
