@@ -12,6 +12,7 @@ import messagesService from '../../services/messages'
 import groupsService from '../../services/groups'
 import { setGroupMessages } from '../../reducers/messagesReducer'
 import UpdateGroup from './UpdateGroup'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
 const Group = ({ route, navigation }) => {
     const [group, setGroup] = useState()
@@ -63,18 +64,17 @@ const Group = ({ route, navigation }) => {
             dispatch(updateGroupTodo(group?.id, response))
         })
         .catch(error => {
-            console.log('error in update todo', error)
+            dispatch(showError(error))
         })
     }
 
     const handleDeleteTodo = (id) => {
         todosService.deleteTodo(id)
-        .then(() => {})
-        .catch(error => {
-            console.log('error in delete todo', error)
-        })
-        .finally(() => {
+        .then(() => {
             dispatch(deleteGroupTodo(group.id, id))
+        })
+        .catch(error => {
+            dispatch(showError(error))
         })
     }
 
@@ -95,9 +95,10 @@ const Group = ({ route, navigation }) => {
         .then(response => {
             dispatch(updateGroup(response))
             navigation.setOptions({ title: response.name })
+            dispatch(showSuccess('Group updated'))
         })
         .catch(error => {
-            console.log('error in update group', error)
+            dispatch(showError(error))
         })
     }
 
@@ -108,9 +109,10 @@ const Group = ({ route, navigation }) => {
         .then(() => {
             navigation.navigate('Groups')
             dispatch(deleteGroup(id))
+            dispatch(showSuccess('Group removed'))
         })
         .catch(error => {
-            console.log('error in delete group')
+            dispatch(showError(error))
         })
     }
 

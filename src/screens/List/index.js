@@ -8,6 +8,7 @@ import { updateTodo, deleteTodo, updateList, deleteList } from '../../reducers/l
 import { useEffect, useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import UpdateList from './UpdateList'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
 const List = ({ route, navigation }) => {
     const [list, setList] = useState()
@@ -36,18 +37,17 @@ const List = ({ route, navigation }) => {
             dispatch(updateTodo(list?.id, response))
         })
         .catch(error => {
-            console.log('error in update todo', error)
+            dispatch(showError(error))
         })
     }
 
     const handleDeleteTodo = (id) => {
         todosService.deleteTodo(id)
-        .then(() => {})
-        .catch(error => {
-            console.log('error in delete todo', error)
-        })
-        .finally(() => {
+        .then(() => {
             dispatch(deleteTodo(list.id, id))
+        })
+        .catch(error => {
+            dispatch(showError(error))
         })
     }
 
@@ -68,9 +68,10 @@ const List = ({ route, navigation }) => {
         .then(response => {
             dispatch(updateList(response))
             navigation.setOptions({ title: response.name })
+            dispatch(showSuccess('List updated'))
         })
         .catch(error => {
-            console.log('error in update list', error)
+            dispatch(showError(error))
         })
     }
 
@@ -81,6 +82,10 @@ const List = ({ route, navigation }) => {
         .then(() => {
             navigation.navigate('Lists')
             dispatch(deleteList(id))
+            dispatch(showSuccess('List removed'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
         })
     }
 

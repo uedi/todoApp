@@ -7,6 +7,7 @@ import AddButton from '../../components/AddButton'
 import groupsService from '../../services/groups'
 import { setMembers } from '../../reducers/groupsReducer'
 import MemberDetails from './MemberDetails'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
 const GroupMembers = ({ route }) => {
     const [group, setGroup] = useState()
@@ -40,9 +41,10 @@ const GroupMembers = ({ route }) => {
         groupsService.addMember(group.id, { contactId: contact.contactId })
         .then(response => {
             dispatch(setMembers(group.id, response))
+            dispatch(showSuccess('Member invited'))
         })
         .catch(error => {
-            console.log('error in add group member', error)
+            dispatch(showError(error))
         })
     }
 

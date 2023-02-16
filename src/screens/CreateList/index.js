@@ -2,9 +2,9 @@ import { View, StyleSheet, KeyboardAvoidingView, Keyboard,
     TouchableWithoutFeedback } from 'react-native'
 import CreateListForm from './CreateListForm'
 import { addList } from '../../reducers/listsReducer'
-import { setNotification } from '../../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 import listService from '../../services/lists'
+import { showSuccess, showError } from '../../reducers/notificationReducer'
 
 const CreateList = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -13,11 +13,11 @@ const CreateList = ({ navigation }) => {
         listService.create(newList)
         .then(response => {
             dispatch(addList(response))
-            dispatch(setNotification('List Created!', 4))
+            dispatch(showSuccess('List created'))
             navigation.goBack()
         })
         .catch(error => {
-            console.log('error in create list')
+            dispatch(showError(error))
         })
     }
 
