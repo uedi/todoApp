@@ -155,6 +155,7 @@ const Group = ({ route, navigation }) => {
                 todoClicked={handleTodoClicked}
                 deleteTodo={handleDeleteTodo}
                 showDelete={showDelete}
+                color={group.color}
             />
             { canModify &&
                 <UpdateGroup

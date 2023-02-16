@@ -3,15 +3,26 @@ import { View, Text, StyleSheet, TextInput, Keyboard, Button,
     TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
 import Modal from 'react-native-modal'
 import DeleteButton from '../../components/DeleteButton'
+import DropDownPicker from 'react-native-dropdown-picker'
+import { backgroundColorsForSelect } from '../../utils/colors'
 
 const UpdateGroup = ({ group, update, isOpen, close, deleteGroup }) => {
     const [newName, setNewName] = useState(group?.name)
+    const [newColor, setNewColor] = useState(group?.color)
+    const [colorPickerOpen, setColorPickerOpen] = useState(false)
 
-    const changed = group && group.name !== newName && newName !== ''
+    const nameChanged = group && group.name !== newName && newName !== ''
+    const colorChanged = group && group.color !== newColor && newColor !== ''
+    const changed = nameChanged || colorChanged
+
+    const handleSetColor = valueFunc => {
+        setNewColor(valueFunc())
+    }
 
     const handleUpdate = () => {
         update({
-            name: newName
+            name: newName,
+            color: colorChanged ? newColor : null
         })
     }
 
@@ -42,6 +53,15 @@ const UpdateGroup = ({ group, update, isOpen, close, deleteGroup }) => {
                             multiline={false}
                             value={newName}
                             onChangeText={setNewName}
+                        />
+                        <Text style={styles.label}>Color (optional)</Text>
+                        <DropDownPicker
+                            style={styles.picker(newColor)}
+                            open={colorPickerOpen}
+                            setOpen={setColorPickerOpen}
+                            value={newColor}
+                            setValue={handleSetColor}
+                            items={backgroundColorsForSelect}
                         />
                         <View style={styles.button}>
                             <Button
@@ -93,7 +113,12 @@ const styles = StyleSheet.create({
         width: 200,
         marginBottom: 10,
         marginTop: 30
-    }
+    },
+    picker: color => ({
+        marginTop: 5,
+        alignSelf: 'stretch',
+        backgroundColor: color || ''
+    })
 })
 
 export default UpdateGroup
