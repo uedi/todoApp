@@ -1,8 +1,10 @@
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 
 const ContactListItem = ({ contact, clicked }) => {
+    const backgroundColor = contact.color ? { backgroundColor: contact.color } : {}
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, backgroundColor]}>
             <TouchableNativeFeedback
                 onPress={() => clicked(contact)}
             >

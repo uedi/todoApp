@@ -15,6 +15,7 @@ const Contact = ({ route, navigation }) => {
     const id = route.params?.id
     const dispatch = useDispatch()
     const contact = contacts && contacts.find(c => c.contactId.toString() === id)
+    const backgroundColor = contact?.color ? { backgroundColor: contact.color } : {}
     const size = Dimensions.get('window').width / 2.5
 
     if (!contact) {
@@ -35,7 +36,7 @@ const Contact = ({ route, navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, backgroundColor]}>
             <TouchableNativeFeedback
                 onPress={() => setRemoveOpen(true)}
             >
