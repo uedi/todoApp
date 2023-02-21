@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Keyboard, Button,
-    TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
-import Modal from 'react-native-modal'
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
 import DeleteButton from '../../components/DeleteButton'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { backgroundColorsForSelect } from '../../utils/colors'
+import ModalContainer from '../../components/ModalContainer'
 
 const UpdateGroup = ({ group, update, isOpen, close, deleteGroup }) => {
     const [newName, setNewName] = useState(group?.name)
@@ -27,69 +26,47 @@ const UpdateGroup = ({ group, update, isOpen, close, deleteGroup }) => {
     }
 
     return (
-        <Modal
-            isVisible={isOpen}
-            customBackdrop={
-                <TouchableWithoutFeedback onPress={close}>
-                    <View style={styles.backdrop} />
-                </TouchableWithoutFeedback>
-            }
+        <ModalContainer
+            isOpen={isOpen}
+            close={close}
         >
-            <KeyboardAvoidingView style={styles.modalContainer}>
-                <TouchableWithoutFeedback
-                    onPress={Keyboard.dismiss}
-                >
-                    <View style={styles.innerContainer}>
-                        <View style={styles.topicRow}>
-                            <Text style={styles.topic}>Update group</Text>
-                            <DeleteButton
-                                title='Delete group'
-                                onPress={deleteGroup}
-                            />
-                        </View>
-                        <Text style={styles.label}>Name</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            multiline={false}
-                            value={newName}
-                            onChangeText={setNewName}
-                        />
-                        <Text style={styles.label}>Color (optional)</Text>
-                        <DropDownPicker
-                            style={styles.picker(newColor)}
-                            open={colorPickerOpen}
-                            setOpen={setColorPickerOpen}
-                            value={newColor}
-                            setValue={handleSetColor}
-                            items={backgroundColorsForSelect}
-                        />
-                        <View style={styles.button}>
-                            <Button
-                                title='Update'
-                                disabled={!changed}
-                                onPress={handleUpdate}
-                            />
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </KeyboardAvoidingView>
-        </Modal>
+            <>
+                <View style={styles.topicRow}>
+                    <Text style={styles.topic}>Update group</Text>
+                    <DeleteButton
+                        title='Delete group'
+                        onPress={deleteGroup}
+                    />
+                </View>
+                <Text style={styles.label}>Name</Text>
+                <TextInput
+                    style={styles.textInput}
+                    multiline={false}
+                    value={newName}
+                    onChangeText={setNewName}
+                />
+                <Text style={styles.label}>Color (optional)</Text>
+                <DropDownPicker
+                    style={styles.picker(newColor)}
+                    open={colorPickerOpen}
+                    setOpen={setColorPickerOpen}
+                    value={newColor}
+                    setValue={handleSetColor}
+                    items={backgroundColorsForSelect}
+                />
+                <View style={styles.button}>
+                    <Button
+                        title='Update'
+                        disabled={!changed}
+                        onPress={handleUpdate}
+                    />
+                </View>
+            </>
+        </ModalContainer>
     )
 }
 
 const styles = StyleSheet.create({
-    modalContainer: {
-        backgroundColor: '#fff',
-        elevation: 3
-    },
-    innerContainer: {
-        padding: 15,
-    },
-    backdrop: {
-        flex: 1,
-        backgroundColor: '#000',
-        opacity: 0.5
-    },
     topicRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
