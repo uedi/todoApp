@@ -6,12 +6,14 @@ import QRCode from 'react-native-qrcode-svg'
 import { MaterialIcons } from '@expo/vector-icons'
 import RemoveContact from './RemoveContact'
 import contactsService from '../../services/contacts'
-import { removeContact } from '../../reducers/contactsReducer'
+import { removeContact, updateContact } from '../../reducers/contactsReducer'
 import { showSuccess, showError } from '../../reducers/notificationReducer'
+import UpdateContact from './UpdateContact'
 
 const Contact = ({ route, navigation }) => {
     const contacts = useSelector(state => state.contacts)
     const [removeOpen, setRemoveOpen] = useState(false)
+    const [updateOpen, setUpdateOpen] = useState(false)
     const id = route.params?.id
     const dispatch = useDispatch()
     const contact = contacts && contacts.find(c => c.contactId.toString() === id)
@@ -35,15 +37,37 @@ const Contact = ({ route, navigation }) => {
         })
     }
 
+    const handleUpdateContact = (id, data) => {
+        setUpdateOpen(false)
+        contactsService.update(id, data)
+        .then(response => {
+            dispatch(updateContact(response))
+            dispatch(showSuccess('Contact updated'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
+        })
+    }
+
     return (
         <View style={[styles.container, backgroundColor]}>
-            <TouchableNativeFeedback
-                onPress={() => setRemoveOpen(true)}
-            >
-                <View style={styles.button}>
-                    <MaterialIcons name='person-remove' size={24} color='black' />
-                </View>
-            </TouchableNativeFeedback>
+            <View style={styles.controls}>
+                <TouchableNativeFeedback
+                    onPress={() => setRemoveOpen(true)}
+                >
+                    <View style={styles.button}>
+                        <MaterialIcons name='person-remove' size={24} color='black' />
+                    </View>
+                </TouchableNativeFeedback>
+                <View style={{ width: 50 }} />
+                <TouchableNativeFeedback
+                    onPress={() => setUpdateOpen(true)}
+                >
+                    <View style={styles.button}>
+                        <MaterialIcons name='edit' size={24} color='black' />
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
             <View style={{ height: 30 }} />
             <Text style={styles.name}>{contact.name}</Text>
             { id &&
@@ -58,6 +82,12 @@ const Contact = ({ route, navigation }) => {
                 close={() => setRemoveOpen(false)}
                 removeContact={handleRemoveContact}
             />
+            <UpdateContact
+                isOpen={updateOpen}
+                contact={contact}
+                close={() => setUpdateOpen(false)}
+                update={handleUpdateContact}
+            />
         </View>
     )
 }
@@ -67,6 +97,9 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         alignItems: 'center'
+    },
+    controls: {
+        flexDirection: 'row'
     },
     name: {
         marginBottom: 30,
