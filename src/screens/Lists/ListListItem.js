@@ -1,34 +1,27 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import TodoStatus from '../../components/TodoStatus'
+import ItemContainer from '../../components/ItemContainer'
 
 const ListListItem = ({ list, clicked }) => {
 
     const todosCount = list.todos ? list.todos.length : 0
     const doneCount = list.todos ? list.todos.reduce((sum, cur) => sum + (cur.done ? 1 : 0), 0) : 0
-    const backgroundColor = list.color ? { backgroundColor: list.color } : {}
+
     return (
-        <View style={[styles.container, backgroundColor]}>
-            <TouchableNativeFeedback
-                onPress={() => clicked(list)}
-            >
-                <View style={styles.innerContainer}>
+        <ItemContainer
+            color={list.color}
+            onPress={() => clicked(list)}
+        >
+            <View style={styles.innerContainer}>
                     <Text style={styles.listName}>{list.name}</Text>
                     <TodoStatus doneCount={doneCount} totalCount={todosCount} />
-                </View>
-            </TouchableNativeFeedback>
-        </View>
+            </View>
+        </ItemContainer>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        elevation: 1,
-        borderRadius: 20,
-        overflow: 'hidden'
-    },
     innerContainer: {
         flex: 1,
         padding: 20

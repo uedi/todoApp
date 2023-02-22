@@ -1,42 +1,33 @@
-import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import TodoStatus from '../../components/TodoStatus'
 import { Ionicons } from '@expo/vector-icons'
+import ItemContainer from '../../components/ItemContainer'
 
 const GroupListItem = ({ group, clicked }) => {
 
     const todosCount = group.todos ? group.todos.length : 0
     const doneCount = group.todos ? group.todos.reduce((sum, cur) => sum + (cur.done ? 1 : 0), 0) : 0
-    const backgroundColor = group.color ? { backgroundColor: group.color } : {}
 
     return (
-        <View style={[styles.container, backgroundColor]}>
-            <TouchableNativeFeedback
-                onPress={() => clicked(group)}
-            >
-                <View style={styles.innerContainer}>
-                    <View style={styles.row}>
-                        <Text style={styles.groupName}>{group.name}</Text>
-                        <View style={styles.groupMembersContainer}>
-                            <Ionicons name='people' size={21} color='black' />
-                            <Text style={styles.counter}>{group.users ? group.users.length : 0}</Text>
-                        </View>
-                        
+        <ItemContainer
+            color={group.color}
+            onPress={() => clicked(group)}
+        >
+            <View style={styles.innerContainer}>
+                <View style={styles.row}>
+                    <Text style={styles.groupName}>{group.name}</Text>
+                    <View style={styles.groupMembersContainer}>
+                        <Ionicons name='people' size={21} color='black' />
+                        <Text style={styles.counter}>{group.users ? group.users.length : 0}</Text>
                     </View>
-                    <TodoStatus doneCount={doneCount} totalCount={todosCount} />
                 </View>
-            </TouchableNativeFeedback>
-        </View>
+                <TodoStatus doneCount={doneCount} totalCount={todosCount} />
+            </View>
+        </ItemContainer>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        elevation: 1,
-        borderRadius: 20,
-        overflow: 'hidden'
-    },
     innerContainer: {
         flex: 1,
         padding: 20

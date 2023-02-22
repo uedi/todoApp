@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, FlatList, TouchableNativeFeedback } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import ItemContainer from '../../components/ItemContainer'
 
 const ItemSeparator = () => (
     <View style={{ height: 20 }} />
@@ -6,17 +7,15 @@ const ItemSeparator = () => (
 
 const MemberListItem = ({ member, clicked, myId }) => {
     return (
-        <View style={styles.container}>
-            <TouchableNativeFeedback
-                onPress={() => clicked(member)}
-            >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.name}>
-                        {member.name}{myId === member.id ? ' (me)' : ''}
-                    </Text>
-                </View>
-            </TouchableNativeFeedback>
-        </View>
+        <ItemContainer
+            onPress={() => clicked(member)}
+        >
+            <View style={styles.innerContainer}>
+                <Text style={styles.name}>
+                    {member.name}{myId === member.id ? ' (me)' : ''}
+                </Text>
+            </View>
+        </ItemContainer>
     )
 }
 
@@ -41,13 +40,6 @@ const MemberList = ({ members, memberClicked, myId }) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        elevation: 1,
-        borderRadius: 20,
-        overflow: 'hidden'
-    },
     innerContainer: {
         flex: 1,
         padding: 20

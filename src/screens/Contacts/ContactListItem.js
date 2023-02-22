@@ -1,29 +1,21 @@
-import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
+import ItemContainer from '../../components/ItemContainer'
 
 const ContactListItem = ({ contact, clicked }) => {
-    const backgroundColor = contact.color ? { backgroundColor: contact.color } : {}
 
     return (
-        <View style={[styles.container, backgroundColor]}>
-            <TouchableNativeFeedback
-                onPress={() => clicked(contact)}
-            >
-                <View style={styles.innerContainer}>
-                    <Text style={styles.name}>{contact.name}</Text>
-                </View>
-            </TouchableNativeFeedback>
-        </View>
+        <ItemContainer
+            color={contact.color}
+            onPress={() => clicked(contact)}
+        >
+            <View style={styles.innerContainer}>
+                <Text style={styles.name}>{contact.name}</Text>
+            </View>
+        </ItemContainer>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        elevation: 1,
-        borderRadius: 20,
-        overflow: 'hidden'
-    },
     innerContainer: {
         flex: 1,
         padding: 20
