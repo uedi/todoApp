@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { View, StyleSheet, Button, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeUser } from '../../reducers/userReducer'
+import { setUser, removeUser } from '../../reducers/userReducer'
 import ChangePassword from './ChangePassword'
 import accountService from '../../services/account'
 import { showSuccess, showError } from '../../reducers/notificationReducer'
+import EditName from './EditName'
 
 const Account = () => {
     const [changePasswordOpen, setChangePasswordOpen] = useState(false)
+    const [editNameOpen, setEditNameOpen] = useState(false)
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
@@ -20,6 +22,20 @@ const Account = () => {
         accountService.changePassword(data)
         .then(() => {
             dispatch(showSuccess('Password changed'))
+        })
+        .catch(error => {
+            dispatch(showError(error))
+        })
+    }
+
+    const handleChangeName = newName => {
+        setEditNameOpen(false)
+        accountService.changeName({
+            name: newName
+        })
+        .then(response => {
+            dispatch(setUser(response))
+            dispatch(showSuccess('Name changed'))
         })
         .catch(error => {
             dispatch(showError(error))
@@ -41,6 +57,11 @@ const Account = () => {
                 title='Change password'
                 onPress={() => setChangePasswordOpen(true)}
             />
+            <View style={{ height: 30 }} />
+            <Button
+                title='Edit name'
+                onPress={() => setEditNameOpen(true)}
+            />
             <View style={{ height: 50 }} />
             <Button
                 title='Logout'
@@ -50,6 +71,12 @@ const Account = () => {
                 isOpen={changePasswordOpen}
                 close={() => setChangePasswordOpen(false)}
                 changePassword={handleChangePassword}
+            />
+            <EditName
+                isOpen={editNameOpen}
+                close={() => setEditNameOpen(false)}
+                name={user?.user.name}
+                changeName={handleChangeName}
             />
         </View>
     )
