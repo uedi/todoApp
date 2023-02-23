@@ -1,13 +1,29 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { format } from 'date-fns'
+import DeleteIconButton from '../../components/DeleteIconButton'
 
-const MessageListItem = ({ message }) => {
+const MessageListItem = ({ message, userId, deleteMessage }) => {
     const createdDate = message.createdAt ? Date.parse(message.createdAt) : null
+    const myMessage = userId && userId === message.user?.id
+
+    const handleDelete = () => {
+        deleteMessage(message.id)
+    }
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container(myMessage)}>
             <View style={styles.infoRow}>
-                <Text style={styles.info}>{message.user?.name}</Text>
+                <Text style={[styles.info, styles.username]}>{message.user?.name}</Text>
+                { myMessage &&
+                    <View style={styles.deleteButton}>
+                        <DeleteIconButton
+                            color='gray'
+                            onPress={handleDelete}
+                            style={styles.deleteButton}
+                        />
+                    </View>
+                }
                 <Text style={styles.info}>{createdDate ? format(createdDate, 'dd.MM.yyyy') : ''}</Text>
             </View>
             <View style={styles.messageContainer}>
@@ -18,15 +34,19 @@ const MessageListItem = ({ message }) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: myMessage => ({
         padding: 20,
-        backgroundColor: '#fff',
+        backgroundColor: myMessage ? '#b3e5fc' : '#fff',
         elevation: 1,
         borderRadius: 20
-    },
+    }),
     infoRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    username: {
+        flex: 1
     },
     info: {
         color: '#000',
@@ -38,6 +58,9 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 15,
         marginBottom: 5
+    },
+    deleteButton: {
+        marginHorizontal: 3
     }
 })
 

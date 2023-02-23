@@ -2,6 +2,7 @@ import { View, StyleSheet, TouchableNativeFeedback } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 const DeleteIconButton = ({ onPress, color = 'red' }) => {
+
     return (
         <TouchableNativeFeedback
             onPress={onPress}
@@ -16,10 +17,7 @@ const DeleteIconButton = ({ onPress, color = 'red' }) => {
 const styles = StyleSheet.create({
     button: {
         marginLeft: 15,
-        padding: 1,
-        borderWidth: 1,
-        borderRadius: 1,
-        borderColor: '#ddd'
+        padding: 1
     }
 })
 
