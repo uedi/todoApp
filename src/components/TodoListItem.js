@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native'
 import CheckBox from 'expo-checkbox'
 import { format } from 'date-fns'
-import { MaterialIcons } from '@expo/vector-icons'
+import DeleteIconButton from './DeleteIconButton'
 
 const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete, todoClicked, color }) => {
 
@@ -20,16 +20,6 @@ const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete, todoClicked, c
         deleteTodo(todo.id)
     }
 
-    const DeleteButton = () => (
-        <TouchableNativeFeedback
-            onPress={handleDelete}
-        >
-            <View style={styles.button}>
-                <MaterialIcons name='delete' size={24} color='red' />
-            </View>
-        </TouchableNativeFeedback>
-    )
-
     return (
         <View style={[styles.container, backgroundColor]}>
             <View style={styles.row}>
@@ -45,7 +35,7 @@ const TodoListItem = ({ todo, updateTodo, deleteTodo, showDelete, todoClicked, c
                     value={todo.done}
                     onValueChange={handleValueChange}
                 />
-                {showDelete && <DeleteButton />}
+                {showDelete && <DeleteIconButton onPress={handleDelete} />}
             </View>
             { (todo.start || todo.end) &&
                 <View style={[styles.row, { marginTop: 5 }]}>
@@ -88,13 +78,6 @@ const styles = StyleSheet.create({
     todoInfo: {
         color: '#000',
         fontSize: 14
-    },
-    button: {
-        marginLeft: 15,
-        padding: 1,
-        borderWidth: 1,
-        borderRadius: 1,
-        borderColor: '#ddd'
     }
 })
 
